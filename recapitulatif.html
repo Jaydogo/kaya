@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Votre récapitulatif — Kaya</title>
+<meta name="description" content="Kaya, la conciergerie abidjanaise : packs découverte et prestations sur-mesure à Abidjan.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#241510">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23241510'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='18' fill='%23B8923F' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="kaya.css">
+</head>
+<body data-page="recap">
+<div data-form-state>
+  <div class="recap">
+    <div class="img recap-photo">
+      <div class="scrim"></div>
+      <div class="nav"><a href="./" class="logo">KAYA</a><a href="pack.html" class="back" data-r-back>← Modifier</a></div>
+      <span class="cap" style="top: 104px; right: var(--gutter);">Photo de la formule choisie</span>
+      <div class="recap-sum">
+        <div class="eyebrow on-photo">Votre récapitulatif</div>
+        <h1 data-r-title>Pack Wild</h1>
+        <p class="sub" data-r-sub></p>
+        <div class="recap-acts" data-r-acts></div>
+        <div class="recap-lines" data-r-lines></div>
+        <div class="recap-total"><span>Prix estimé</span><span class="serif" data-r-price>[PRIX]</span></div>
+      </div>
+    </div>
+    <main class="recap-form">
+      <div class="eyebrow">Dernière étape</div>
+      <h2>Où vous l'envoyer&nbsp;?</h2>
+      <p class="body" style="margin-top: 20px; max-width: 440px;">Aucun paiement ni compte&nbsp;: nous vous envoyons ce récapitulatif, puis un conseiller vous recontacte.</p>
+      <div style="margin-top: 72px;"><label for="nom">Nom</label><input id="nom" type="text" autocomplete="name" placeholder="Prénom et nom"></div>
+      <div class="eyebrow" style="margin-top: 64px;">Recevoir par</div>
+      <div style="margin-top: 20px;">
+        <button type="button" class="chan" data-chan="whatsapp" aria-pressed="true"><span class="box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FAF7F1" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>WhatsApp</button>
+        <div class="chan-field on" id="field-whatsapp"><input id="tel" type="tel" autocomplete="tel" placeholder="+225 00 00 00 00" aria-label="Numéro WhatsApp"></div>
+        <button type="button" class="chan" data-chan="email" aria-pressed="false"><span class="box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FAF7F1" stroke-width="2.4" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Email</button>
+        <div class="chan-field" id="field-email"><input id="mail" type="email" autocomplete="email" placeholder="vous@exemple.com" aria-label="Adresse email"></div>
+      </div>
+      <p class="err" data-err role="alert"></p>
+      <button type="button" class="btn block" data-send style="margin-top: 36px;">Envoyer mon récapitulatif</button>
+    </main>
+  </div>
+</div>
+
+<div data-sent-state hidden>
+  <section class="img sent t3">
+    <div class="scrim"></div>
+    <div class="nav" data-nav="recap"></div>
+    <span class="cap" style="right: var(--gutter); bottom: 96px;">Photo plein écran</span>
+    <div class="sent-in">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#B8923F" stroke-width="1.1" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <h1>C'est envoyé.</h1>
+      <p>Votre récapitulatif est parti par <span data-via>WhatsApp</span>. Un conseiller Kaya vous recontacte pour confirmer et finaliser le règlement.</p>
+      <div class="sent-cta">
+        <a href="#" class="btn light" data-wa-send target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+        <a href="./" class="back">Retour à l'accueil</a>
+        <button type="button" data-edit class="back" style="background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 4px; font-size: 12px;">Modifier ma demande</button>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="proto">Prototype · photos et prix à venir</div>
+<script src="kaya.js"></script>
+</body>
+</html>
