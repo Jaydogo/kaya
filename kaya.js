@@ -133,6 +133,17 @@
     $('.testis-list', el).innerHTML = list.map(function (t) {
       return '<figure class="testi"><blockquote>« ' + esc(t.text) + ' »</blockquote><figcaption><b>' + esc(t.who) + '</b>' + esc(t.ctx) + '</figcaption></figure>';
     }).join('');
+    if (!packKey) {
+      // Points de pagination du swipe mobile (masqués sur desktop)
+      var track = $('.testis-list', el);
+      track.insertAdjacentHTML('afterend', '<div class="swipe-dots" aria-hidden="true">' + list.map(function (_, i) { return '<span' + (i ? '' : ' class="on"') + '></span>'; }).join('') + '</div>');
+      var dots = el.querySelectorAll('.swipe-dots span');
+      track.addEventListener('scroll', function () {
+        var items = track.children;
+        var i = Math.round(track.scrollLeft / (items[1].offsetLeft - items[0].offsetLeft));
+        dots.forEach(function (d, j) { d.classList.toggle('on', j === Math.min(i, dots.length - 1)); });
+      }, { passive: true });
+    }
     el.insertAdjacentHTML('beforeend', '<p class="testis-note">Exemples de mise en page — à remplacer par de vrais avis clients.</p>');
   }
 
