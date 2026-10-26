@@ -25,8 +25,8 @@
   var PEOPLE = { id: 'personnes', label: 'Nombre de personnes', type: 'number' };
 
   var SERVICES = {
-    vehicule: { name: 'Location de véhicule', sub: 'Avec ou sans chauffeur', detail: 'Berline, 4x4 ou van · avec ou sans chauffeur', tone: 't4',
-      fields: [SELECT('type', 'Type de véhicule', ['Berline', '4x4', 'Van']), DATES, SELECT('chauffeur', 'Chauffeur', ['Avec chauffeur', 'Sans chauffeur'])],
+    vehicule: { name: 'Location de véhicule', sub: 'Avec ou sans chauffeur', detail: 'Citadine, berline, 4x4 ou van · avec ou sans chauffeur', tone: 't4',
+      fields: [SELECT('type', 'Type de véhicule', ['Citadine', 'Berline', '4x4', 'Van']), DATES, SELECT('chauffeur', 'Chauffeur', ['Avec chauffeur', 'Sans chauffeur'])],
       hint: 'Trajets, horaires, nombre de passagers…' },
     hebergement: { name: 'Hébergement', sub: 'Résidences et hôtels partenaires', detail: 'Résidences privées et hôtels partenaires', tone: 't2',
       fields: [SELECT('type', "Type d'hébergement", ['Résidence privée', 'Hôtel', 'Pas de préférence']), DATES, PEOPLE],
@@ -47,6 +47,16 @@
       fields: [DATES, PEOPLE],
       hint: 'Décrivez votre séjour idéal : envies, rythme, budget…' }
   };
+
+  // Exemples de mise en page : à remplacer par de vrais avis clients (texte, prénom, provenance).
+  var TESTIMONIALS = [
+    { pack: 'nature', text: 'Tout était prêt à notre arrivée. Nous n’avons eu qu’à profiter, le conseiller a ajusté le programme au jour le jour.', who: '[Prénom N.]', ctx: 'Pack Nature · [Ville, pays]' },
+    { pack: 'culture', text: 'Des visites passionnantes et un guide qui connaît chaque histoire d’Abidjan. Une vraie découverte, en toute sérénité.', who: '[Prénom N.]', ctx: 'Pack Culture & Histoire · [Ville, pays]' },
+    { pack: 'wild', text: 'Une semaine intense, parfaitement organisée, du vol jusqu’au dernier transfert. On repart déjà avec l’envie de revenir.', who: '[Prénom N.]', ctx: 'Pack Wild · [Ville, pays]' },
+    { pack: 'wild', text: 'Réactifs sur WhatsApp à toute heure, des activités hors des sentiers battus : exactement ce que nous cherchions.', who: '[Prénom N.]', ctx: 'Pack Wild · [Ville, pays]' },
+    { pack: 'nature', text: 'Un séjour à notre rythme, sans aucune contrainte. Le chauffeur et le guide ont été d’une grande gentillesse.', who: '[Prénom N.]', ctx: 'Pack Nature · [Ville, pays]' },
+    { pack: 'culture', text: 'Nous voyagions en famille avec des enfants : chaque détail avait été pensé. Merci à toute l’équipe Kaya.', who: '[Prénom N.]', ctx: 'Pack Culture & Histoire · [Ville, pays]' }
+  ];
 
   var STORE_KEY = 'kaya-recap';
   var page = document.body.getAttribute('data-page');
@@ -112,11 +122,25 @@
       '<small>© Kaya — La Conciergerie Abidjanaise</small>';
   }
 
+  /* ---------- Témoignages ---------- */
+  function renderTestimonials(packKey) {
+    var el = $('[data-testis]');
+    if (!el) return;
+    var list = packKey
+      ? TESTIMONIALS.filter(function (t) { return t.pack === packKey; })
+      : [TESTIMONIALS[0], TESTIMONIALS[1], TESTIMONIALS[2]];
+    if (!list.length) { el.hidden = true; return; }
+    $('.testis-list', el).innerHTML = list.map(function (t) {
+      return '<figure class="testi"><blockquote>« ' + esc(t.text) + ' »</blockquote><figcaption><b>' + esc(t.who) + '</b>' + esc(t.ctx) + '</figcaption></figure>';
+    }).join('');
+    el.insertAdjacentHTML('beforeend', '<p class="testis-note">Exemples de mise en page — à remplacer par de vrais avis clients.</p>');
+  }
+
   /* ---------- Fiche pack ---------- */
   function renderPack() {
     var key = PACKS[param('p')] ? param('p') : 'wild';
     var pack = PACKS[key];
-    var state = { duration: 'mid', picks: {} };
+    var state = { duration: 'mid', picks: {}, flight: false };
     document.title = 'Pack ' + pack.name + ' — Kaya';
     $('[data-pack-name]').textContent = pack.name;
     $('[data-pack-lede]').textContent = pack.lede;
@@ -153,13 +177,31 @@
       var b = e.target.closest('[data-slot]');
       if (b) { state.picks[b.getAttribute('data-slot')] = +b.getAttribute('data-opt'); draw(); }
     });
+    document.querySelectorAll('[data-flight]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state.flight = b.getAttribute('data-flight') === 'yes';
+        document.querySelectorAll('[data-flight]').forEach(function (x) {
+          x.setAttribute('aria-pressed', String((x.getAttribute('data-flight') === 'yes') === state.flight));
+        });
+        $('[data-flight-fields]').hidden = !state.flight;
+      });
+    });
+
     $('[data-go]').addEventListener('click', function () {
       var d = DURATIONS[state.duration];
       var acts = [];
       for (var i = 1; i <= d.slots; i++) {
         acts.push('[Activité ' + String.fromCharCode(64 + (i - 1) * 3 + (state.picks[i] || 0) + 1) + ']');
       }
-      save({ kind: 'pack', key: key, title: 'Pack ' + pack.name, sub: d.label + ' · ' + d.slots + ' activités', activities: acts, price: d.price, tone: pack.tone, back: 'pack.html?p=' + key });
+      var lines = [];
+      if (state.flight) {
+        var fmt = function (v) { return v ? new Date(v).toLocaleDateString('fr-FR') : 'à définir'; };
+        lines.push('Billet d’avion : oui · ' + $('#vol-classe').value);
+        lines.push('Vol : départ ' + fmt($('#vol-aller').value) + ' · retour ' + fmt($('#vol-retour').value));
+      } else {
+        lines.push('Billet d’avion : non');
+      }
+      save({ kind: 'pack', key: key, title: 'Pack ' + pack.name, sub: d.label + ' · ' + d.slots + ' activités', activities: acts, lines: lines, price: d.price, tone: pack.tone, back: 'pack.html?p=' + key });
       location.href = 'recapitulatif.html';
     });
     draw();
@@ -266,7 +308,8 @@
 
   renderNav();
   renderFoot();
-  if (page === 'pack') renderPack();
+  if (page === 'home') renderTestimonials();
+  if (page === 'pack') { renderPack(); renderTestimonials(PACKS[param('p')] ? param('p') : 'wild'); }
   if (page === 'service') renderService();
   if (page === 'recap') renderRecap();
 })();

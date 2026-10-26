@@ -45,6 +45,22 @@
       <h2 data-count></h2>
       <div data-slots></div>
     </div>
+    <div>
+      <div class="eyebrow">Étape 3</div>
+      <h2>Billet d'avion</h2>
+      <p class="meta" style="margin-top: 8px;">Nous pouvons réserver votre vol pour Abidjan.</p>
+      <div class="seg" role="group" aria-label="Inclure un billet d'avion">
+        <button type="button" data-flight="no" aria-pressed="true">Non merci</button>
+        <button type="button" data-flight="yes" aria-pressed="false">Oui, je souhaite un billet</button>
+      </div>
+      <div class="flight" data-flight-fields hidden>
+        <div class="row2">
+          <div><label for="vol-aller">Date de départ</label><input id="vol-aller" type="date"></div>
+          <div><label for="vol-retour">Date de retour</label><input id="vol-retour" type="date"></div>
+        </div>
+        <div><label for="vol-classe">Classe</label><select id="vol-classe"><option>Économique</option><option>Premium économique</option><option>Affaires</option><option>Première</option></select></div>
+      </div>
+    </div>
     <div class="total">
       <div class="meta">Prix estimé</div>
       <div class="serif" data-price></div>
@@ -54,6 +70,11 @@
     </div>
   </div>
 </main>
+<section class="testis" data-testis="pack">
+  <div class="eyebrow">Ils ont vécu ce pack</div>
+  <h2>Témoignages</h2>
+  <div class="testis-list"></div>
+</section>
 <footer data-foot></footer>
 <div class="proto">Prototype · photos et prix à venir</div>
 <script src="kaya.js"></script>

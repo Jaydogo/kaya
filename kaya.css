@@ -147,6 +147,22 @@ a.img:hover { filter: brightness(1.12); }
 .opt[aria-pressed="true"] .check { display: flex; }
 .opt .lbl { font-size: 13px; margin-top: 10px; }
 .opt[aria-pressed="true"] .lbl { font-weight: 600; }
+.seg { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.seg button { flex: 1 1 auto; background: none; border: 1px solid rgba(36,21,16,.25); color: var(--ink); padding: 16px 20px; font-size: 13px; min-height: 52px; transition: background .15s, color .15s; }
+.seg button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.flight { display: flex; flex-direction: column; gap: 32px; margin-top: 36px; }
+.flight[hidden] { display: none; }
+
+/* Témoignages */
+.testis { padding: 140px var(--gutter); border-top: 1px solid var(--line); }
+.testis h2 { font-size: 40px; margin-top: 20px; }
+.testis-list { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 48px; margin-top: 64px; }
+.testi { display: flex; flex-direction: column; gap: 24px; padding-top: 28px; border-top: 1px solid var(--gold); margin: 0; }
+.testi blockquote { margin: 0; font-family: var(--serif); font-size: 22px; line-height: 1.45; }
+.testi figcaption { font-size: 13px; color: var(--muted); }
+.testi figcaption b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
+.testis-note { font-size: 11px; color: var(--muted); margin-top: 48px; }
+
 .total { padding-top: 40px; border-top: 1px solid rgba(36,21,16,.2); }
 .total .serif { font-size: 34px; margin-top: 10px; }
 
@@ -212,6 +228,7 @@ textarea { resize: vertical; }
   .booking { position: static; }
   .manifesto-in { padding: 0 64px; }
   .manifesto-in p.serif { font-size: 40px; }
+  .testis-list { grid-template-columns: 1fr; gap: 40px; max-width: 640px; }
   .recap-form { padding: 120px 56px 80px; }
 }
 
@@ -229,6 +246,10 @@ textarea { resize: vertical; }
   .hero-cta .btn { padding: 20px; }
   .hero-cta .wlink { text-align: center; }
   .steps { padding: 96px var(--gutter); }
+  .testis { padding: 96px var(--gutter); }
+  .testis h2 { font-size: 30px; }
+  .testis-list { margin-top: 44px; }
+  .testi blockquote { font-size: 19px; }
   .steps h2, .sec-head h2 { font-size: 30px; line-height: 1.25; }
   .steps-list { grid-template-columns: 1fr; gap: 52px; }
   .num { font-size: 44px; }
