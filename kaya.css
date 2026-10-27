@@ -162,7 +162,7 @@ a.img:hover { filter: brightness(1.12); }
 .testi figcaption { font-size: 13px; color: var(--muted); }
 .testi figcaption b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
 .testis-note { font-size: 11px; color: var(--muted); margin-top: 48px; }
-.swipe-dots { display: none; }
+.swipe-ctrl { display: none; }
 
 .total { padding-top: 40px; border-top: 1px solid rgba(36,21,16,.2); }
 .total .serif { font-size: 34px; margin-top: 10px; }
@@ -251,14 +251,19 @@ textarea { resize: vertical; }
   .testis h2 { font-size: 30px; }
   .testis-list { margin-top: 44px; }
   .testi blockquote { font-size: 19px; }
-  [data-testis="all"] { padding-left: 0; padding-right: 0; }
-  [data-testis="all"] > .eyebrow, [data-testis="all"] > h2, [data-testis="all"] > .testis-note { padding: 0 var(--gutter); }
-  [data-testis="all"] .testis-list { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--gutter); padding: 0 var(--gutter); max-width: none; scrollbar-width: none; }
-  [data-testis="all"] .testis-list::-webkit-scrollbar { display: none; }
-  [data-testis="all"] .testi { flex: 0 0 82%; scroll-snap-align: start; }
-  .swipe-dots { display: flex; gap: 8px; padding: 28px var(--gutter) 0; }
+  .testis { padding-left: 0; padding-right: 0; }
+  .testis > .eyebrow, .testis > h2, .testis > .testis-note { padding: 0 var(--gutter); }
+  .testis-list { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--gutter); padding: 0 var(--gutter); max-width: none; scrollbar-width: none; scroll-behavior: smooth; }
+  .testis-list::-webkit-scrollbar { display: none; }
+  .testi { flex: 0 0 82%; scroll-snap-align: start; }
+  .swipe-ctrl { display: flex; align-items: center; justify-content: space-between; padding: 28px var(--gutter) 0; }
+  .swipe-dots { display: flex; gap: 8px; }
   .swipe-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(36,21,16,.2); transition: background .2s; }
   .swipe-dots span.on { background: var(--gold); }
+  .swipe-arrows { display: flex; gap: 10px; }
+  .swipe-arrows button { width: 44px; height: 44px; border: 1px solid rgba(36,21,16,.25); background: none; color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; transition: opacity .2s, background .2s; }
+  .swipe-arrows button:active { background: rgba(36,21,16,.06); }
+  .swipe-arrows button:disabled { opacity: .3; }
   .steps h2, .sec-head h2 { font-size: 30px; line-height: 1.25; }
   .steps-list { grid-template-columns: 1fr; gap: 52px; }
   .num { font-size: 44px; }

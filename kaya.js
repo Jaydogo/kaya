@@ -133,18 +133,38 @@
     $('.testis-list', el).innerHTML = list.map(function (t) {
       return '<figure class="testi"><blockquote>« ' + esc(t.text) + ' »</blockquote><figcaption><b>' + esc(t.who) + '</b>' + esc(t.ctx) + '</figcaption></figure>';
     }).join('');
-    if (!packKey) {
-      // Points de pagination du swipe mobile (masqués sur desktop)
-      var track = $('.testis-list', el);
-      track.insertAdjacentHTML('afterend', '<div class="swipe-dots" aria-hidden="true">' + list.map(function (_, i) { return '<span' + (i ? '' : ' class="on"') + '></span>'; }).join('') + '</div>');
-      var dots = el.querySelectorAll('.swipe-dots span');
-      track.addEventListener('scroll', function () {
-        var items = track.children;
-        var i = Math.round(track.scrollLeft / (items[1].offsetLeft - items[0].offsetLeft));
-        dots.forEach(function (d, j) { d.classList.toggle('on', j === Math.min(i, dots.length - 1)); });
-      }, { passive: true });
-    }
+    if (list.length > 1) swipeControls(el, list.length);
     el.insertAdjacentHTML('beforeend', '<p class="testis-note">Exemples de mise en page — à remplacer par de vrais avis clients.</p>');
+  }
+
+  // Points + flèches du swipe mobile (masqués sur desktop)
+  function swipeControls(el, count) {
+    var track = $('.testis-list', el);
+    var arrow = function (d) { return '<svg width="16" height="12" viewBox="0 0 20 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="' + (d < 0 ? 'M9 2L2 8l7 6M2 8h16' : 'M11 2l7 6-7 6M18 8H2') + '"/></svg>'; };
+    var dotsHtml = '';
+    for (var k = 0; k < count; k++) dotsHtml += '<span' + (k ? '' : ' class="on"') + '></span>';
+    track.insertAdjacentHTML('afterend',
+      '<div class="swipe-ctrl"><div class="swipe-dots" aria-hidden="true">' + dotsHtml + '</div>' +
+      '<div class="swipe-arrows"><button type="button" data-dir="-1" aria-label="Témoignage précédent" disabled>' + arrow(-1) + '</button>' +
+      '<button type="button" data-dir="1" aria-label="Témoignage suivant">' + arrow(1) + '</button></div></div>');
+    var dots = el.querySelectorAll('.swipe-dots span');
+    var prev = $('[data-dir="-1"]', el);
+    var next = $('[data-dir="1"]', el);
+    var step = function () { return track.children[1].offsetLeft - track.children[0].offsetLeft; };
+    var current = function () { return Math.min(Math.round(track.scrollLeft / step()), count - 1); };
+    var sync = function () {
+      var i = current();
+      dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+      prev.disabled = i <= 0;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    track.addEventListener('scroll', sync, { passive: true });
+    el.querySelectorAll('[data-dir]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var i = Math.max(0, Math.min(count - 1, current() + +b.getAttribute('data-dir')));
+        track.scrollTo({ left: i * step() });
+      });
+    });
   }
 
   /* ---------- Fiche pack ---------- */
