@@ -273,10 +273,24 @@ body[data-current=home] .top:not(.solid) .wa{background:rgba(246,241,232,.18);ba
 .burger{display:grid;gap:6px;width:44px;height:44px;place-content:center;background:none;border:0;cursor:pointer;color:inherit}
 .burger i{display:block;width:22px;height:1.5px;background:currentColor;transition:transform .5s var(--ease)}
 body.menu .burger i:first-child{transform:translateY(3.75px) rotate(45deg)}body.menu .burger i:last-child{transform:translateY(-3.75px) rotate(-45deg)}
-.mmenu{position:fixed;inset:0;z-index:45;background:var(--bg);padding:120px var(--pad) 36px;display:grid;align-content:space-between;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
+.mmenu{position:fixed;inset:0;z-index:45;background:var(--bg);padding:92px var(--pad) 22px;display:grid;grid-template-rows:auto 1fr auto;gap:14px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s;overflow-y:auto}
 body.menu .mmenu{opacity:1;visibility:visible}
-.mmenu nav{display:grid;gap:8px}
-.mmenu nav a{font-weight:600;font-stretch:78%;font-size:52px;line-height:1.02;letter-spacing:-.045em;color:var(--ink)}
+.mm-lab{display:block}
+.mmenu nav{display:grid;align-content:start;border-top:1px solid var(--line)}
+.mmenu nav a{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;min-height:76px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--ink);opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+body.menu .mmenu nav a{opacity:1;transform:none}
+body.menu .mmenu nav a:nth-child(2){transition-delay:.05s}body.menu .mmenu nav a:nth-child(3){transition-delay:.1s}body.menu .mmenu nav a:nth-child(4){transition-delay:.15s}
+.mm-n{font-size:12px;color:var(--mut)}
+.mm-t{display:grid;gap:2px}
+.mm-t b{font-weight:600;font-stretch:78%;font-size:30px;line-height:1;letter-spacing:-.035em}
+.mm-t small{font-size:13px;color:var(--mut)}
+.mmenu nav a i{font-style:normal;font-size:18px;color:var(--acc)}
+.mm-foot{display:grid;gap:14px}
+.mm-wa{background:var(--ink);color:var(--bg);border-radius:18px;padding:18px;display:grid;gap:14px}
+.mm-wa p{font-size:15px;line-height:1.35}
+.mm-wa .btn{background:var(--bg);color:var(--ink);width:100%}
+.mm-meta{display:flex;justify-content:space-between;gap:12px}
+body.menu .back{opacity:0!important;pointer-events:none}
 body.menu .top{background:var(--bg)!important}
 body.menu .top .logo,body.menu .top .burger,body.menu .top .sm{color:var(--ink)!important}
 body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
@@ -311,7 +325,19 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 <a class="back" href="/">← Toutes les pistes</a>
 
 <header class="top" id="top"><div class="in w"><a class="logo" href="#/">KAYA</a><nav><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations</a></nav><div class="r"><span class="sm">FR · EN</span><a class="wa" href="#" data-wa>WhatsApp</a><button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-label="Menu"><i></i><i></i></button></div></div></header>
-<div class="mmenu"><nav aria-label="Menu"><a href="#/">Accueil</a><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations sur-mesure</a><a href="#" data-wa>WhatsApp &amp; contact</a></nav><div class="sm" style="display:flex;justify-content:space-between"><span>La conciergerie abidjanaise</span><span>FR · EN</span></div></div>
+<div class="mmenu" role="dialog" aria-label="Menu">
+  <span class="sm mm-lab">Menu</span>
+  <nav aria-label="Navigation">
+    <a href="#/"><span class="mm-n">01</span><span class="mm-t"><b>Accueil</b><small>La conciergerie abidjanaise</small></span><i aria-hidden="true">→</i></a>
+    <a href="#/packs"><span class="mm-n">02</span><span class="mm-t"><b>Packs découverte</b><small>Quatre expériences, à votre rythme</small></span><i aria-hidden="true">→</i></a>
+    <a href="#/prestations"><span class="mm-n">03</span><span class="mm-t"><b>Prestations</b><small>Véhicule, hébergement, sécurité…</small></span><i aria-hidden="true">→</i></a>
+    <a href="#/recap"><span class="mm-n">04</span><span class="mm-t"><b>Mon récapitulatif</b><small>Votre sélection en cours</small></span><i aria-hidden="true">→</i></a>
+  </nav>
+  <div class="mm-foot">
+    <div class="mm-wa"><p>Une question&nbsp;? Un conseiller vous répond sur WhatsApp.</p><a class="btn" href="#" data-wa>Écrire sur WhatsApp</a></div>
+    <div class="mm-meta sm"><span>Particuliers, diplomatique et corporate</span><span>FR · EN</span></div>
+  </div>
+</div>
 
 <main>
 <!-- 01 ACCUEIL -->
@@ -469,6 +495,6 @@ if(matchMedia('(hover:hover) and (min-width:960px)').matches){
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="/smooth.js?v=1"></script>
+<script src="/smooth.js?v=2"></script>
 </body>
 </html>

@@ -39,15 +39,15 @@ em{font-style:italic;color:#EBC9A8}
 .top .mb i::after{content:"";position:absolute;left:0;top:5px;width:20px;height:1px;background:currentColor;transition:transform .5s var(--ease),top .5s var(--ease)}
 body.menu .top .mb i{transform:translateY(2.5px) rotate(45deg)}
 body.menu .top .mb i::after{top:0;transform:rotate(-90deg)}
-.menu{position:fixed;inset:0;z-index:55;background:var(--bg);display:grid;align-content:center;padding:96px var(--pad) 40px;opacity:0;visibility:hidden;transition:opacity .8s var(--ease),visibility .8s}
-body.menu .menu{opacity:1;visibility:visible}
-.menu nav{display:grid;gap:6px}
-.menu nav a{font-family:'Instrument Serif';font-weight:400;font-size:44px;line-height:1.1;opacity:0;transform:translateY(14px);transition:opacity .9s var(--ease),transform .9s var(--ease),color .4s}
-body.menu .menu nav a{opacity:1;transform:none}
-body.menu .menu nav a:nth-child(2){transition-delay:.06s}body.menu .menu nav a:nth-child(3){transition-delay:.12s}body.menu .menu nav a:nth-child(4){transition-delay:.18s}
-.menu nav a:hover{color:var(--acc);font-style:italic}
-.menu .ft{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between}
-@media(min-width:960px){.menu nav a{font-size:88px}}
+.nmenu{position:fixed;inset:0;z-index:55;background:var(--bg);display:grid;align-content:center;padding:96px var(--pad) 40px;opacity:0;visibility:hidden;transition:opacity .8s var(--ease),visibility .8s}
+body.menu .nmenu{opacity:1;visibility:visible}
+.nmenu nav{display:grid;gap:6px}
+.nmenu nav a{font-family:'Instrument Serif';font-weight:400;font-size:44px;line-height:1.1;opacity:0;transform:translateY(14px);transition:opacity .9s var(--ease),transform .9s var(--ease),color .4s}
+body.menu .nmenu nav a{opacity:1;transform:none}
+body.menu .nmenu nav a:nth-child(2){transition-delay:.06s}body.menu .nmenu nav a:nth-child(3){transition-delay:.12s}body.menu .nmenu nav a:nth-child(4){transition-delay:.18s}
+.nmenu nav a:hover{color:var(--acc);font-style:italic}
+.nmenu .ft{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between}
+@media(min-width:960px){.nmenu nav a{font-size:88px}}
 
 /* Accueil : immersion */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden}
@@ -255,6 +255,28 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 @media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
 @media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
 @media(max-width:959px){.scene+.scene{margin-top:30svh}.stack{padding-bottom:0}.pt{height:54svh}.silence{min-height:0;padding-top:96px;padding-bottom:96px}.quiet{min-height:70svh}.pres{padding-top:110px;padding-bottom:110px}}
+body.menu .back{opacity:0!important;pointer-events:none}
+
+/* Mobile : étapes en swipe, scènes packs sans empilement (plus léger sur iPhone) */
+@media(max-width:899px){
+ .silence .steps{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:56px calc(var(--pad)*-1) 0;padding:0 var(--pad) 4px;scroll-padding:0 var(--pad);width:auto;max-width:none;-webkit-overflow-scrolling:touch}
+ .silence .steps::-webkit-scrollbar{display:none}
+ .silence .steps div{flex:0 0 82%;scroll-snap-align:start;min-height:260px}
+ .silence .steps div:hover{transform:none}
+ .swipe2{display:flex;justify-content:center;gap:8px;margin-top:18px}
+ .swipe2 span{width:18px;height:1px;background:var(--line);transition:width .4s,background .4s}
+ .swipe2 span.on{width:36px;background:var(--txt)}
+ .silence{display:block}
+ .silence>div{width:100%}
+ .scene{position:relative;height:auto;aspect-ratio:auto;min-height:0;display:grid}
+ .scene+.scene{margin-top:12px}
+ .scene>img{position:relative;height:78svh;transform:none;filter:none;transition:none}
+ .scene::after{display:none}
+ .scene .idx{top:14px;left:14px;padding:7px 10px;background:rgba(12,11,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+ .scene .card{position:relative;width:auto;margin:-64px 12px 0 auto;max-width:86%}
+ .stack{padding-bottom:0;display:grid;gap:0}
+}
+@media(min-width:900px){.swipe2{display:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1,.hero .r{opacity:1;transform:none}}
@@ -264,7 +286,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 <a class="back" href="/">← Toutes les pistes</a>
 
 <header class="top" id="top"><span class="lang">FR · <span style="opacity:.5">EN</span></span><a class="logo" href="#/">Kaya</a><button class="mb" id="mb" aria-expanded="false">Menu <i></i></button></header>
-<div class="menu" id="menu" aria-hidden="true">
+<div class="nmenu" id="menu" aria-hidden="true">
   <nav>
     <a href="#/">Accueil</a>
     <a href="#/packs">Packs découverte</a>
@@ -296,6 +318,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
         <div><p><b>Recevez votre récapitulatif</b><span>Par WhatsApp, par email, ou les deux.</span></p></div>
         <div><p><b>Nous finalisons ensemble</b><span>Un conseiller Kaya vous recontacte pour confirmer et régler.</span></p></div>
       </div>
+      <div class="swipe2" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
     </div>
   </section>
 
@@ -414,9 +437,12 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 <script>
 const mb=document.getElementById('mb'),tp=document.getElementById('top');const sol=()=>tp.classList.toggle('solid',document.body.dataset.current!=='home'||scrollY>innerHeight*.6);addEventListener('scroll',sol,{passive:true});document.addEventListener('kaya:view',sol);
 mb.onclick=()=>{const o=document.body.classList.toggle('menu');mb.setAttribute('aria-expanded',o);document.getElementById('menu').setAttribute('aria-hidden',!o)};
-document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('menu');mb.setAttribute('aria-expanded',false)}));
+document.querySelectorAll('.nmenu a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('menu');mb.setAttribute('aria-expanded',false)}));
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const sts=document.querySelector('.silence .steps'),sw2=[...document.querySelectorAll('.swipe2 span')];
+sts&&sts.addEventListener('scroll',()=>{const i=Math.round(sts.scrollLeft/(sts.children[0].offsetWidth+12));sw2.forEach((d,j)=>d.classList.toggle('on',j===i))},{passive:true});
 const fl=document.getElementById('follow');
 if(matchMedia('(hover:hover) and (min-width:960px)').matches){
  document.querySelectorAll('.hov a').forEach(a=>{a.addEventListener('mouseenter',()=>{fl.src=a.dataset.img;fl.classList.add('on')});a.addEventListener('mouseleave',()=>fl.classList.remove('on'))});
@@ -424,6 +450,6 @@ if(matchMedia('(hover:hover) and (min-width:960px)').matches){
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="/smooth.js?v=1"></script>
+<script src="/smooth.js?v=2"></script>
 </body>
 </html>

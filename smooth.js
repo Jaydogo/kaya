@@ -12,7 +12,7 @@
     wheelMultiplier: 0.8,                            // défilement plus lent
     smoothWheel: true,
     syncTouch: false,                                // tactile : natif
-    prevent: (node) => !!(node.closest && node.closest('.strip,.testis-list,.steps,.prail,.rail,.opts2,.mmenu,.menu')),
+    prevent: (node) => !!(node.closest && node.closest('.strip,.testis-list,.steps,.prail,.rail,.opts2,.mmenu,.nmenu')),
   });
   window.lenis = lenis;
   const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
