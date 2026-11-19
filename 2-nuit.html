@@ -81,7 +81,7 @@ body.menu .menu nav a:nth-child(2){transition-delay:.06s}body.menu .menu nav a:n
 /* Packs : plein écran, empilés */
 .stack{position:relative}
 .scene+.scene{margin-top:70svh}
-.stack{padding-bottom:40svh}
+.stack{padding-bottom:0}
 .scene .card .pr{font-family:'Instrument Serif';font-weight:400;font-size:20px;color:#6F6453;margin-top:-4px}
 @media(min-width:960px){.scene .card .pr{font-size:24px}}
 .scene{position:sticky;top:0;height:100svh;overflow:hidden;display:block}
@@ -95,7 +95,7 @@ body.menu .menu nav a:nth-child(2){transition-delay:.06s}body.menu .menu nav a:n
 .scene .card .m{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6F6453;padding-top:12px;border-top:1px solid rgba(23,19,15,.12)}
 @media(min-width:960px){.scene .card{width:420px;padding:30px}.scene .card h3{font-size:52px}}
 
-.pres{padding-top:160px;padding-bottom:160px}
+.pres{padding-top:110px;padding-bottom:130px}
 .pres .h{display:grid;gap:18px;margin-bottom:60px}
 .pres .h h2{font-size:34px;max-width:18ch}
 @media(min-width:960px){.pres .h{grid-template-columns:1fr 1fr;align-items:end}.pres .h h2{font-size:56px}}
@@ -254,7 +254,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 @media(max-width:600px){.fl-seg{grid-template-columns:1fr}.fl-btn{padding:16px 0;border-bottom:1px solid var(--line)}.fl-btn:last-child{border-bottom:0}}
 @media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
 @media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
-@media(max-width:959px){.scene+.scene{margin-top:30svh}.stack{padding-bottom:16svh}.pt{height:54svh}.silence{min-height:0;padding-top:96px;padding-bottom:96px}.quiet{min-height:70svh}.pres{padding-top:110px;padding-bottom:110px}}
+@media(max-width:959px){.scene+.scene{margin-top:30svh}.stack{padding-bottom:0}.pt{height:54svh}.silence{min-height:0;padding-top:96px;padding-bottom:96px}.quiet{min-height:70svh}.pres{padding-top:110px;padding-bottom:110px}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1,.hero .r{opacity:1;transform:none}}
