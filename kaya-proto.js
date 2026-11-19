@@ -36,7 +36,7 @@
         fields: [...DATES, SELECT('langue', 'Langue', ['Français', 'Anglais']), PEOPLE],
         hint: 'Lieux à visiter, centres d’intérêt…' },
       { slug: 'traducteurs', name: 'Traducteurs', teaser: 'Rendez-vous et événements', detail: 'Interprètes pour vos rendez-vous et événements', img: P + 'civ-06.jpg',
-        fields: [SELECT('langues', 'Langues', ['Français ↔ Anglais', 'Autre (préciser)']), ...DATES, SELECT('cadre', 'Cadre', ['Rendez-vous d’affaires', 'Événement', 'Visite officielle'])],
+        fields: [SELECT('langues', 'Langues', ['Français ↔︎ Anglais', 'Autre (préciser)']), ...DATES, SELECT('cadre', 'Cadre', ['Rendez-vous d’affaires', 'Événement', 'Visite officielle'])],
         hint: 'Nature des échanges, durée, lieu…' },
       { slug: 'securite', name: 'Sécurité', teaser: 'Protection rapprochée', detail: 'Protection rapprochée et escorte', img: P + 'civ-13.jpg',
         fields: [...DATES, SELECT('agents', 'Nombre d’agents', ['1', '2', '3 et plus']), PEOPLE],

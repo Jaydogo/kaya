@@ -29,7 +29,7 @@ h1 i,h2 i,h3 i{font-weight:700}
 .pill:active{transform:scale(.97)}
 .pill.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .arr{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border-bottom:1px solid var(--ink);padding-bottom:3px;color:var(--ink)}
-.arr::after{content:"↗";transition:transform .3s}
+.arr::after{content:"\2197\FE0E";transition:transform .3s}
 .arr:hover::after{transform:translate(2px,-2px)}
 .rd{border-radius:var(--r);overflow:hidden}
 .back{position:fixed;right:12px;top:76px;z-index:90;font-size:11px;background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:999px}
@@ -232,7 +232,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;margin-t
 .opts2 a span{position:relative;z-index:1}
 .opts2 a:hover img{transform:scale(1.07)}
 .opts2.list a{height:auto;min-height:52px;align-items:center;background:var(--bg);color:var(--ink);font-weight:500;justify-content:space-between}
-.opts2.list a::after{content:"↗";position:static;background:none}
+.opts2.list a::after{content:"\2197\FE0E";position:static;background:none}
 .opts2.list a:hover{background:var(--green);color:#F2F0E8}
 .fn{font-size:12px;color:var(--mut);text-align:center}
 @media(min-width:960px){.finder{justify-self:end;width:440px;margin:24px;padding:22px}.opts2 a{height:140px}.heroimg>img{height:82svh}}
@@ -269,7 +269,7 @@ body.menu .burger i:first-child{transform:translateY(3.75px) rotate(45deg)}body.
 body.menu .mmenu{opacity:1;visibility:visible;transform:none}
 .mmenu nav{display:grid;gap:8px}
 .mmenu nav a{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:0 20px;border-radius:16px;background:var(--card);font-size:20px;font-weight:600;color:var(--ink)}
-.mmenu nav a::after{content:"↗"}
+.mmenu nav a::after{content:"\2197\FE0E"}
 @media(min-width:960px){.burger,.mmenu{display:none}}
 @media(max-width:959px){.top .lang{display:none}}
 
@@ -338,10 +338,10 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
 <div data-view="packs" hidden>
   <section class="ph w"><div><a class="crumb" href="#/">← Accueil</a><h1>Quatre expériences, <i>à votre rythme.</i></h1></div><p>Choisissez un pack, puis la durée de votre séjour : le contenu et le prix s’adaptent.</p></section>
   <section class="w pgrid">
-    <a class="pc rd" href="#/pack/nature"><img src="/provisoire/civ-12.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Nature</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Nature · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span><span>Week-end · 5-7 jours · 10 jours et +</span></div></div></a>
-    <a class="pc rd" href="#/pack/culture-histoire"><img src="/provisoire/civ-07.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Culture &amp; Histoire</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Culture &amp; Histoire · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span></div></div></a>
-    <a class="pc rd" href="#/pack/wild"><img src="/provisoire/civ-08.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Wild</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Wild · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span></div></div></a>
-    <a class="pc rd" href="#/prestation/sur-mesure"><img src="/provisoire/civ-06.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Personnalisable</h3><p style="font-size:13px;opacity:.85">Une durée ou un programme hors cadre, composé avec nous.</p><div class="chips"><span>Sur devis</span></div></div></a>
+    <a class="pc rd" href="#/pack/nature"><img src="/provisoire/civ-12.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Nature</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Nature · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span><span>Week-end · 5-7 jours · 10 jours et +</span></div></div></a>
+    <a class="pc rd" href="#/pack/culture-histoire"><img src="/provisoire/civ-07.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Culture &amp; Histoire</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Culture &amp; Histoire · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span></div></div></a>
+    <a class="pc rd" href="#/pack/wild"><img src="/provisoire/civ-08.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Wild</h3><p style="font-size:13px;opacity:.85">[Description de l’ambiance Wild · texte à fournir]</p><div class="chips"><span>Dès [PRIX]</span></div></div></a>
+    <a class="pc rd" href="#/prestation/sur-mesure"><img src="/provisoire/civ-06.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Personnalisable</h3><p style="font-size:13px;opacity:.85">Une durée ou un programme hors cadre, composé avec nous.</p><div class="chips"><span>Sur devis</span></div></div></a>
   </section>
 </div>
 
@@ -375,12 +375,12 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
 <div data-view="prestations" hidden>
   <section class="ph w"><div><a class="crumb" href="#/">← Accueil</a><h1>Tout ce dont votre séjour <i>a besoin.</i></h1></div><p>Décrivez votre besoin, nous revenons vers vous avec une proposition.</p></section>
   <section class="w pgrid">
-    <a class="pc rd" href="#/prestation/vehicule"><img src="/provisoire/civ-02.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Location de véhicule</h3><div class="chips"><span>Avec ou sans chauffeur</span></div></div></a>
-    <a class="pc rd" href="#/prestation/hebergement"><img src="/provisoire/civ-04.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Hébergement</h3><div class="chips"><span>Résidences et hôtels partenaires</span></div></div></a>
-    <a class="pc rd" href="#/prestation/accompagnateurs"><img src="/provisoire/civ-01.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Accompagnateurs</h3><div class="chips"><span>Guides locaux dédiés</span></div></div></a>
-    <a class="pc rd" href="#/prestation/traducteurs"><img src="/provisoire/civ-06.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Traducteurs</h3><div class="chips"><span>Rendez-vous et événements</span></div></div></a>
-    <a class="pc rd" href="#/prestation/securite"><img src="/provisoire/civ-13.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Sécurité</h3><div class="chips"><span>Protection rapprochée</span></div></div></a>
-    <a class="pc rd" href="#/prestation/seminaires"><img src="/provisoire/civ-10.jpg" alt=""><span class="go">↗</span><div class="c"><h3>Séminaires musicaux</h3><div class="chips"><span>Événements et animations</span></div></div></a>
+    <a class="pc rd" href="#/prestation/vehicule"><img src="/provisoire/civ-02.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Location de véhicule</h3><div class="chips"><span>Avec ou sans chauffeur</span></div></div></a>
+    <a class="pc rd" href="#/prestation/hebergement"><img src="/provisoire/civ-04.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Hébergement</h3><div class="chips"><span>Résidences et hôtels partenaires</span></div></div></a>
+    <a class="pc rd" href="#/prestation/accompagnateurs"><img src="/provisoire/civ-01.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Accompagnateurs</h3><div class="chips"><span>Guides locaux dédiés</span></div></div></a>
+    <a class="pc rd" href="#/prestation/traducteurs"><img src="/provisoire/civ-06.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Traducteurs</h3><div class="chips"><span>Rendez-vous et événements</span></div></div></a>
+    <a class="pc rd" href="#/prestation/securite"><img src="/provisoire/civ-13.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Sécurité</h3><div class="chips"><span>Protection rapprochée</span></div></div></a>
+    <a class="pc rd" href="#/prestation/seminaires"><img src="/provisoire/civ-10.jpg" alt=""><span class="go">↗︎</span><div class="c"><h3>Séminaires musicaux</h3><div class="chips"><span>Événements et animations</span></div></div></a>
   </section>
 </div>
 
@@ -427,10 +427,10 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
     <div><b>Contact</b>WhatsApp &amp; contact</div>
     <div><b>Langue</b>Français · English</div>
   </div>
-  <div class="legal"><span>© Kaya · La Conciergerie Abidjanaise</span><span>Mentions légales</span></div>
+  <div class="legal"><span>©︎ Kaya · La Conciergerie Abidjanaise</span><span>Mentions légales</span></div>
 </footer>
 
-<script src="/kaya-proto.js?v=20261119d"></script>
+<script src="/kaya-proto.js?v=20261119e"></script>
 <script>
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
