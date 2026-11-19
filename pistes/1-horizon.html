@@ -286,6 +286,19 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 @media(max-width:700px){.bar{border-radius:22px}.bar .in{display:grid;grid-template-columns:1fr;gap:10px;padding:14px 14px 12px}.bar .in>div{display:flex;justify-content:space-between;align-items:baseline;padding:0 8px}.bar .btn{width:100%;white-space:nowrap}}
 .btn,.glass,.pill{white-space:nowrap}
 @media(max-width:959px){.prow{grid-template-columns:1fr;gap:8px;padding:20px 0}.prow .m{text-align:left;display:flex;flex-wrap:wrap;gap:2px 14px}.prow .th{margin-top:10px}}
+
+/* Citation en carte photo */
+.quote{padding-top:12vh;padding-bottom:4vh}
+.qbox{position:relative;border-radius:28px;overflow:hidden;min-height:78svh;display:flex;align-items:flex-end;color:#F6F1E8}
+.qbox>img{position:absolute;inset:0;transition:transform 2s var(--ease)}
+.qbox:hover>img{transform:scale(1.03)}
+.qbox::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,11,8,.88),rgba(14,11,8,.45) 55%,rgba(14,11,8,.2)),linear-gradient(to right,rgba(14,11,8,.55),transparent 65%)}
+.qin{position:relative;z-index:2;padding:28px 24px;display:grid;gap:22px;width:100%}
+.qin .eb{font-size:13px;font-weight:500;color:#F6F1E8}
+.quote .qin blockquote{font-size:10.4vw;color:#F6F1E8;max-width:14ch}
+.qft{display:grid;gap:18px;padding-top:20px;border-top:1px solid rgba(246,241,232,.25)}
+.qft p{font-size:14px;color:rgba(246,241,232,.85)}
+@media(min-width:960px){.qbox{min-height:86svh}.qin{padding:56px}.quote .qin blockquote{font-size:6vw}.qft{grid-template-columns:1fr auto;align-items:center}}
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero .meta{opacity:1;transform:none}.hero h1 .l span{transform:none}.frame{clip-path:none}}
@@ -340,7 +353,14 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 
   <section class="testis w" data-testis="home"><div class="th"><span class="sm"><span class="dot"></span>Ils nous ont fait confiance</span><h2 class="big">Témoignages</h2></div><div class="testis-list"></div></section>
 
-  <section class="quote w"><blockquote class="big reveal">« La qualité du service, pas l’exclusivité du service. »</blockquote></section>
+  <section class="quote w"><div class="qbox reveal">
+    <img src="/provisoire/civ-05.jpg" alt="Basilique de Yamoussoukro">
+    <div class="qin">
+      <span class="eb"><span class="dot"></span>Notre engagement</span>
+      <blockquote class="big">« La qualité du service, pas l’exclusivité du service. »</blockquote>
+      <div class="qft"><p>Particuliers, diplomatique et corporate · Français &amp; anglais</p><a class="glass" href="#/packs">Découvrir les packs <span class="ar">→</span></a></div>
+    </div>
+  </div></section>
 </div>
 
 <!-- 02 PACKS -->
