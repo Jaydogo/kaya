@@ -252,6 +252,9 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 @media(max-width:700px){.bar .in{display:grid;grid-template-columns:1fr;gap:12px}.bar .in>div{display:flex;justify-content:space-between;align-items:baseline}.bar .btn{width:100%}}
 .btn{white-space:nowrap}
 @media(max-width:600px){.fl-seg{grid-template-columns:1fr}.fl-btn{padding:16px 0;border-bottom:1px solid var(--line)}.fl-btn:last-child{border-bottom:0}}
+@media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
+@media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
+@media(max-width:959px){.scene+.scene{margin-top:30svh}.stack{padding-bottom:16svh}.pt{height:54svh}.silence{min-height:0;padding-top:96px;padding-bottom:96px}.quiet{min-height:70svh}.pres{padding-top:110px;padding-bottom:110px}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1,.hero .r{opacity:1;transform:none}}
@@ -407,7 +410,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 </footer>
 <img class="follow" id="follow" alt="">
 
-<script src="/kaya-proto.js?v=20261119e"></script>
+<script src="/kaya-proto.js?v=20261119f"></script>
 <script>
 const mb=document.getElementById('mb'),tp=document.getElementById('top');const sol=()=>tp.classList.toggle('solid',document.body.dataset.current!=='home'||scrollY>innerHeight*.6);addEventListener('scroll',sol,{passive:true});document.addEventListener('kaya:view',sol);
 mb.onclick=()=>{const o=document.body.classList.toggle('menu');mb.setAttribute('aria-expanded',o);document.getElementById('menu').setAttribute('aria-hidden',!o)};

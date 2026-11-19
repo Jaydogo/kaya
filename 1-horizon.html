@@ -299,6 +299,9 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 .qft{display:grid;gap:18px;padding-top:20px;border-top:1px solid rgba(246,241,232,.25)}
 .qft p{font-size:14px;color:rgba(246,241,232,.85)}
 @media(min-width:960px){.qbox{min-height:86svh}.qin{padding:56px}.quote .qin blockquote{font-size:6vw}.qft{grid-template-columns:1fr auto;align-items:center}}
+@media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
+@media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
+@media(max-width:959px){.imm{height:165svh}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero .meta{opacity:1;transform:none}.hero h1 .l span{transform:none}.frame{clip-path:none}}
@@ -449,7 +452,7 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 </footer>
 <div class="peek" id="peek"><img alt=""></div>
 
-<script src="/kaya-proto.js?v=20261119e"></script>
+<script src="/kaya-proto.js?v=20261119f"></script>
 <script>
 const top_=document.getElementById('top');
 const imm=document.getElementById('imm'),ip=imm.querySelector('.imm-pic');

@@ -339,6 +339,7 @@
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.body.classList.remove('menu'); });
 
+  addEventListener('scroll', () => document.body.classList.toggle('scrolled', scrollY > 60), { passive: true });
   addEventListener('hashchange', route);
   addEventListener('DOMContentLoaded', () => { wireWhatsApp(); route(); });
 })();

@@ -280,6 +280,15 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
 .fl-btn{white-space:normal}
 @media(min-width:1100px){.pgrid{grid-template-columns:repeat(4,1fr)}.pgrid .pc:first-child{grid-column:auto}[data-view=prestations] .pgrid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:1000px){.prest .rd.big{height:calc(100svh - 110px)!important;min-height:520px}}
+
+/* Mobile : le module « Je cherche… » passe sous la photo */
+@media(max-width:959px){
+ .heroimg{display:block;overflow:visible;background:none;border-radius:0}
+ .heroimg>img{height:56svh;min-height:340px;border-radius:var(--r);clip-path:inset(0 round var(--r));animation:none;transform:none}
+ .finder{position:relative;margin:-40px 10px 0;padding:18px;box-shadow:0 16px 40px -24px rgba(29,42,32,.35)}
+}
+@media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
+@media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 </style>
@@ -430,7 +439,7 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
   <div class="legal"><span>©︎ Kaya · La Conciergerie Abidjanaise</span><span>Mentions légales</span></div>
 </footer>
 
-<script src="/kaya-proto.js?v=20261119e"></script>
+<script src="/kaya-proto.js?v=20261119f"></script>
 <script>
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
