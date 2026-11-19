@@ -322,6 +322,37 @@ html{background:#F3EEE6}
 @keyframes pagein{from{opacity:0}to{opacity:1}}
 body>main,body>header,body>footer{animation:pagein .9s cubic-bezier(.22,.8,.2,1) both}
 body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:opacity .45s ease}
+
+/* Sélection multi-éléments */
+.selc{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 6px 0 14px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--line);font-size:13px;color:var(--ink)}
+.selc b{display:grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:999px;background:var(--acc);color:#fff;font-size:12px;font-weight:600}
+body[data-current=home] .top:not(.solid) .selc{color:#F6F1E8;box-shadow:inset 0 0 0 1.5px rgba(246,241,232,.45)}
+body.menu .top .selc{color:var(--ink)!important;box-shadow:inset 0 0 0 1.5px var(--line)!important}
+.ctab{display:flex;gap:8px;align-items:center}
+.btn.ghost{background:transparent;color:var(--bg);box-shadow:inset 0 0 0 1.5px rgba(243,238,230,.4)}
+.btn.ghost:hover{background:rgba(243,238,230,.12);color:var(--bg)}
+.btn.ghost2{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.ghost2:hover{background:var(--ink);color:var(--bg)}
+.xs{display:none}
+.sel-item{padding:20px 0 6px;border-top:1.5px solid var(--ink);animation:fu .6s both var(--ease);animation-delay:calc(var(--i)*70ms)}
+.sel-item+.sel-item{margin-top:26px}
+.sel-h{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline;margin-bottom:8px}
+.sel-n{font-size:12px;color:var(--mut)}
+.sel-t{font-weight:600;font-stretch:78%;font-size:26px;line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
+.sel-acts{display:flex;gap:4px}
+.sel-ed,.sel-del{min-height:40px;display:inline-flex;align-items:center;padding:0 10px;border:0;background:none;font-size:13px;font-weight:500;color:var(--ink);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.sel-del{color:var(--mut)}
+.sel-item .sum-row:first-of-type{border-top:0}
+.sel-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
+.sel-more a{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--line);color:var(--ink);font-weight:500}
+.sel-more a::before{content:"+ "}
+.sel-empty{padding:24px;border-radius:16px;background:var(--bg2)}
+.sel-empty a{text-decoration:underline;text-underline-offset:4px;color:var(--ink)}
+.k-toast{background:var(--ink);color:var(--bg);border-radius:999px}
+.k-toast-a{background:var(--bg);color:var(--ink);border-radius:999px}
+@media(max-width:959px){.selc .lg{display:none}.selc{padding:0 6px;gap:0}}
+@media(max-width:700px){.ctab{display:grid;grid-template-columns:auto 1fr}.ctab .lg{display:none}.ctab .xs{display:inline}.ctab .btn{padding:0 16px}}
+.bar .btn.ghost{background:transparent;color:var(--bg);box-shadow:inset 0 0 0 1.5px rgba(243,238,230,.4)}.bar .btn.ghost:hover{background:rgba(243,238,230,.12);color:var(--bg)}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero .meta{opacity:1;transform:none}.hero h1 .l span{transform:none}.frame{clip-path:none}}
@@ -330,14 +361,14 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 <body>
 <a class="back" href="/">← Toutes les pistes</a>
 
-<header class="top" id="top"><div class="in w"><a class="logo" href="#/">KAYA</a><nav><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations</a></nav><div class="r"><span class="sm">FR · EN</span><a class="wa" href="#" data-wa>WhatsApp</a><button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-label="Menu"><i></i><i></i></button></div></div></header>
+<header class="top" id="top"><div class="in w"><a class="logo" href="#/">KAYA</a><nav><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations</a></nav><div class="r"><span class="sm">FR · EN</span><a class="selc" href="#/recap" data-sel-link hidden><span class="lg">Sélection</span><b data-sel-count>0</b></a><a class="wa" href="#" data-wa>WhatsApp</a><button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-label="Menu"><i></i><i></i></button></div></div></header>
 <div class="mmenu" role="dialog" aria-label="Menu">
   <span class="sm mm-lab">Menu</span>
   <nav aria-label="Navigation">
     <a href="#/"><span class="mm-n">01</span><span class="mm-t"><b>Accueil</b><small>La conciergerie abidjanaise</small></span><i aria-hidden="true">→</i></a>
     <a href="#/packs"><span class="mm-n">02</span><span class="mm-t"><b>Packs découverte</b><small>Quatre expériences, à votre rythme</small></span><i aria-hidden="true">→</i></a>
     <a href="#/prestations"><span class="mm-n">03</span><span class="mm-t"><b>Prestations</b><small>Véhicule, hébergement, sécurité…</small></span><i aria-hidden="true">→</i></a>
-    <a href="#/recap"><span class="mm-n">04</span><span class="mm-t"><b>Mon récapitulatif</b><small>Votre sélection en cours</small></span><i aria-hidden="true">→</i></a>
+    <a href="#/recap"><span class="mm-n">04</span><span class="mm-t"><b>Ma sélection</b><small>Packs et prestations choisis</small></span><i aria-hidden="true">→</i></a>
   </nav>
   <div class="mm-foot">
     <div class="mm-wa"><p>Une question&nbsp;? Un conseiller vous répond sur WhatsApp.</p><a class="btn" href="#" data-wa>Écrire sur WhatsApp</a></div>
@@ -418,7 +449,7 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
     <section class="step"><div><span class="sm"><span class="dot"></span>Étape 2</span><h2 class="big" style="margin-top:18px">Billet d’avion</h2><p style="margin-top:16px;max-width:30ch">Nous pouvons réserver votre vol pour Abidjan.</p></div><div data-flight></div></section>
     <section class="step"><div><span class="sm"><span class="dot"></span>Étape 3 · <span data-bind="count"></span></span><h2 class="big" style="margin-top:18px">Une activité par catégorie</h2></div><div data-cats></div></section>
   </div>
-  <div class="bar"><div class="in"><div><small><span data-bind="dur.label"></span> · <span data-progress></span> · prix estimé</small><b data-bind="price"></b></div><button class="btn" data-go-recap="pack">Recevoir mon récapitulatif</button></div><div class="prog"><i data-progress-bar></i></div></div>
+  <div class="bar"><div class="in"><div><small><span data-bind="dur.label"></span> · <span data-progress></span> · prix estimé</small><b data-bind="price"></b></div><div class="ctab"><button class="btn ghost" type="button" data-add-sel="pack"><span class="lg">+ Ajouter à ma sélection</span><span class="xs">+ Ajouter</span></button><button class="btn" type="button" data-go-recap="pack">Recevoir mon récapitulatif</button></div></div><div class="prog"><i data-progress-bar></i></div></div>
   <section class="testis w" data-testis="pack"><div class="th"><span class="sm"><span class="dot"></span>Ils ont vécu ce pack</span><h2 class="big">Témoignages</h2></div><div class="testis-list"></div></section>
   <section class="atyp w"><span class="sm"><span class="dot"></span>Une autre durée ?</span><h3 class="big">4 jours, 12 jours… nous composons un format sur-mesure.</h3><a class="lk" href="#/prestation/sur-mesure">Demander un devis</a></section>
 </div>
@@ -441,15 +472,15 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
   <section class="ph w"><div><a class="crumb" href="#/prestations">← Prestations</a><h1 class="big" data-bind="prest.name"></h1></div><p data-bind="prest.detail"></p></section>
   <section class="pform w">
     <div class="im"><img data-bind-src="prest.img" alt=""></div>
-    <form novalidate onsubmit="return false"><span class="sm"><span class="dot"></span>Votre besoin</span><h2 class="big" style="font-size:clamp(44px,4.6vw,80px);margin:18px 0 44px">Quelques détails</h2><div class="fields" data-fields></div><button class="btn" style="margin-top:48px;width:100%" data-go-recap="prest">Recevoir mon récapitulatif</button><p class="hint">Par WhatsApp ou email · sans engagement</p></form>
+    <form novalidate onsubmit="return false"><span class="sm"><span class="dot"></span>Votre besoin</span><h2 class="big" style="font-size:clamp(44px,4.6vw,80px);margin:18px 0 44px">Quelques détails</h2><div class="fields" data-fields></div><button class="btn" type="button" style="margin-top:48px;width:100%" data-go-recap="prest">Recevoir mon récapitulatif</button><button class="btn ghost2" type="button" style="margin-top:10px;width:100%" data-add-sel="prest">+ Ajouter à ma sélection et continuer</button><p class="hint">Par WhatsApp ou email · sans engagement</p></form>
   </section>
 </div>
 
 <!-- 06 RÉCAPITULATIF -->
 <div data-view="recap" hidden>
-  <section class="ph w"><div><a class="crumb" href="#/packs" data-recap-back>← Modifier ma sélection</a><span class="sm"><span class="dot"></span>Dernière étape</span><h1 class="big" style="margin-top:24px">Votre récapitulatif</h1></div><p>Aucun paiement ni compte : nous vous l’envoyons, puis un conseiller vous recontacte.</p></section>
+  <section class="ph w"><div><a class="crumb" href="#/packs" data-recap-back>← Modifier ma sélection</a><span class="sm"><span class="dot"></span>Dernière étape</span><h1 class="big" style="margin-top:24px">Votre récapitulatif</h1></div><p>Toute votre sélection part en un seul message. Aucun paiement ni compte : un conseiller vous recontacte pour confirmer et finaliser.</p></section>
   <section class="w rc">
-    <div><span class="sm" style="display:block;margin-bottom:16px">Récapitulatif</span><div data-summary></div></div>
+    <div><span class="sm" style="display:block;margin-bottom:16px">Votre sélection</span><div data-summary></div></div>
     <form data-recap-form novalidate>
       <span class="sm">Vos coordonnées</span>
       <div class="fields" style="grid-template-columns:1fr;margin:14px 0 44px"><label class="fld"><span class="fld-l">Nom</span><input class="fld-i" name="name" placeholder="Prénom et nom" autocomplete="name"></label></div>
@@ -484,7 +515,7 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 </footer>
 <div class="peek" id="peek"><img alt=""></div>
 
-<script src="/kaya-proto.js?v=20261119f"></script>
+<script src="/kaya-proto.js?v=20261119g"></script>
 <script>
 const top_=document.getElementById('top');
 const imm=document.getElementById('imm'),ip=imm.querySelector('.imm-pic');

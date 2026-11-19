@@ -300,6 +300,32 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
  .q4{right:-6%;bottom:12%;width:48%}
  .qimg{opacity:.6}
 }
+
+/* Sélection multi-éléments */
+.hl{display:flex;align-items:center;gap:16px}
+.selc{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F3ECDF}
+.selc b{display:grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:var(--paper);color:var(--ink);font-weight:500;letter-spacing:0}
+@media(max-width:600px){.hl:has(.selc:not([hidden])) .lang{display:none}}
+.ctab{display:flex;gap:8px;align-items:center}
+.btn.ghost{background:transparent;color:var(--txt);box-shadow:inset 0 0 0 1px rgba(230,221,205,.45)}
+.btn.ghost:hover{background:rgba(230,221,205,.1)}
+.xs{display:none}
+.ticket .sel-item{padding:14px 0 4px;border-top:1px solid var(--ink)}
+.ticket .sel-item+.sel-item{margin-top:18px}
+.sel-h{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;margin-bottom:4px}
+.sel-n{font-size:10px;letter-spacing:.2em;color:#7A6D5A}
+.sel-t{font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;line-height:1.05}
+.sel-acts{display:flex;gap:2px}
+.sel-ed,.sel-del{min-height:40px;display:inline-flex;align-items:center;padding:0 8px;border:0;background:none;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.sel-del{color:#7A6D5A}
+.sel-more{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:20px;padding-top:14px;border-top:1px dashed rgba(23,19,15,.25);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7A6D5A}
+.sel-more a{display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border:1px solid rgba(23,19,15,.3);color:var(--ink)}
+.sel-more a::before{content:"+ "}
+.sel-empty a{text-decoration:underline;color:var(--ink)}
+.k-toast{background:var(--paper);color:var(--ink);border-radius:0;font-family:'Geist',sans-serif}
+.k-toast-a{background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:700px){.ctab{display:grid;grid-template-columns:auto 1fr;width:100%}.ctab .lg{display:none}.ctab .xs{display:inline}.ctab .btn{padding:0 14px}}
+.bar .btn.ghost{background:transparent;color:var(--txt);box-shadow:inset 0 0 0 1px rgba(230,221,205,.45)}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1,.hero .r{opacity:1;transform:none}}
@@ -308,12 +334,13 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 <body>
 <a class="back" href="/">← Toutes les pistes</a>
 
-<header class="top" id="top"><span class="lang">FR · <span style="opacity:.5">EN</span></span><a class="logo" href="#/">Kaya</a><button class="mb" id="mb" aria-expanded="false">Menu <i></i></button></header>
+<header class="top" id="top"><span class="hl"><span class="lang">FR · <span style="opacity:.5">EN</span></span><a class="selc" href="#/recap" data-sel-link hidden>Sélection <b data-sel-count>0</b></a></span><a class="logo" href="#/">Kaya</a><button class="mb" id="mb" aria-expanded="false">Menu <i></i></button></header>
 <div class="nmenu" id="menu" aria-hidden="true">
   <nav>
     <a href="#/">Accueil</a>
     <a href="#/packs">Packs découverte</a>
     <a href="#/prestations">Prestations</a>
+    <a href="#/recap">Ma sélection</a>
     <a href="#" data-wa><i>WhatsApp</i></a>
   </nav>
   <div class="ft sm"><span>La conciergerie abidjanaise</span><span>Français · English</span></div>
@@ -394,7 +421,7 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
       <div class="blk"><span class="sm">Étape 1</span><h2>La durée de votre séjour</h2><div data-durations></div></div>
       <div class="blk"><span class="sm">Étape 2</span><h2>Billet <em>d’avion</em></h2><p class="lead2">Nous pouvons réserver votre vol pour Abidjan.</p><div data-flight></div></div>
       <div class="blk"><span class="sm">Étape 3 · <span data-bind="count"></span></span><h2>Une activité <em>par catégorie.</em></h2><div data-cats></div></div>
-      <div class="bar"><div class="prog"><i data-progress-bar></i></div><div class="in"><div><small><span data-bind="dur.label"></span> · <span data-progress></span></small><b data-bind="price"></b></div><button class="btn" data-go-recap="pack">Recevoir mon récapitulatif</button></div></div>
+      <div class="bar"><div class="prog"><i data-progress-bar></i></div><div class="in"><div><small><span data-bind="dur.label"></span> · <span data-progress></span></small><b data-bind="price"></b></div><div class="ctab"><button class="btn ghost" type="button" data-add-sel="pack"><span class="lg">+ Ajouter à ma sélection</span><span class="xs">+ Ajouter</span></button><button class="btn" type="button" data-go-recap="pack">Recevoir mon récapitulatif</button></div></div></div>
       <div class="atyp"><span class="sm">Une autre durée ?</span><h3>4 jours, 12 jours… nous composons un format sur-mesure.</h3><a class="lk" href="#/prestation/sur-mesure">Demander un devis</a></div>
     </div>
   </section>
@@ -419,14 +446,14 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
   <section class="pk">
     <div class="vis"><img data-bind-src="prest.img" alt=""><div class="c"><a class="lk" href="#/prestations">Prestations</a><h1 data-bind="prest.name" style="font-size:clamp(46px,6vw,92px)"></h1><p data-bind="prest.detail"></p></div></div>
     <div class="cfg" style="padding-bottom:140px">
-      <form novalidate onsubmit="return false"><span class="sm">Votre besoin</span><h2 style="font-size:40px;margin:16px 0 40px">Quelques <em>détails</em></h2><div class="fields" data-fields></div><button class="btn" style="margin-top:44px;width:100%" data-go-recap="prest">Recevoir mon récapitulatif</button><p class="hint">Par WhatsApp ou email · sans engagement</p></form>
+      <form novalidate onsubmit="return false"><span class="sm">Votre besoin</span><h2 style="font-size:40px;margin:16px 0 40px">Quelques <em>détails</em></h2><div class="fields" data-fields></div><button class="btn" type="button" style="margin-top:44px;width:100%" data-go-recap="prest">Recevoir mon récapitulatif</button><button class="btn ghost" type="button" style="margin-top:10px;width:100%" data-add-sel="prest">+ Ajouter à ma sélection et continuer</button><p class="hint">Par WhatsApp ou email · sans engagement</p></form>
     </div>
   </section>
 </div>
 
 <!-- 06 RÉCAPITULATIF -->
 <div data-view="recap" hidden>
-  <section class="ph w"><div><span class="sm">Dernière étape</span><h1 style="margin-top:18px">Votre <em>récapitulatif</em></h1><a class="lk" href="#/packs" data-recap-back style="margin-top:22px">← Modifier ma sélection</a></div><p>Aucun paiement ni compte : nous vous l’envoyons, puis un conseiller vous recontacte.</p></section>
+  <section class="ph w"><div><span class="sm">Dernière étape</span><h1 style="margin-top:18px">Votre <em>récapitulatif</em></h1><a class="lk" href="#/packs" data-recap-back style="margin-top:22px">← Modifier ma sélection</a></div><p>Toute votre sélection part en un seul message. Aucun paiement ni compte : un conseiller vous recontacte pour confirmer et finaliser.</p></section>
   <section class="w rc">
     <div class="ticket"><span class="tag">Kaya · Récapitulatif</span><h3>Votre sélection</h3><div data-summary></div></div>
     <form data-recap-form novalidate>
@@ -462,7 +489,7 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 </footer>
 <img class="follow" id="follow" alt="">
 
-<script src="/kaya-proto.js?v=20261119f"></script>
+<script src="/kaya-proto.js?v=20261119g"></script>
 <script>
 const mb=document.getElementById('mb'),tp=document.getElementById('top');const sol=()=>tp.classList.toggle('solid',document.body.dataset.current!=='home'||scrollY>innerHeight*.6);addEventListener('scroll',sol,{passive:true});document.addEventListener('kaya:view',sol);
 mb.onclick=()=>{const o=document.body.classList.toggle('menu');mb.setAttribute('aria-expanded',o);document.getElementById('menu').setAttribute('aria-hidden',!o)};

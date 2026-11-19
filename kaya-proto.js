@@ -60,6 +60,9 @@
     actPhotos: ['civ-12', 'civ-01', 'civ-08', 'civ-05', 'civ-09', 'civ-04', 'civ-06', 'civ-07', 'civ-03', 'civ-13', 'civ-02', 'civ-10'].map((n) => P + n + '.jpg'),
   };
   window.KAYA = K;
+  const baseCss = document.createElement('style');
+  baseCss.textContent = '.k-toast{position:fixed;z-index:95;left:50%;top:76px;transform:translate(-50%,-14px);display:flex;align-items:center;gap:14px;width:max-content;max-width:calc(100vw - 24px);padding:8px 8px 8px 18px;font-size:14px;line-height:1.3;opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.22,.8,.2,1)}.k-toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}.k-toast-a{white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;padding:0 14px;font-weight:500}[data-sel-link][hidden]{display:none!important}';
+  document.head.appendChild(baseCss);
 
   const STORE = 'kaya-pistes';
   const S = Object.assign({ pack: null, dur: 'mid', choices: {}, flight: { on: false, aller: '', retour: '', classe: K.flightClasses[0] }, prest: null, prestData: {}, from: null, back: '#/packs' },
@@ -168,7 +171,7 @@
       pr.fields.forEach((f) => {
         const lab = document.createElement('label');
         lab.className = 'fld fld-' + f.id;
-        const prev = S.prest === pr.slug && S.prestData[f.id] ? esc(S.prestData[f.id]) : '';
+        const prev = S.prest === pr.slug && S.prestData && S.prestData[f.id] ? esc(S.prestData[f.id]) : '';
         let input;
         if (f.type === 'select') {
           input = `<select class="fld-i" name="${f.id}">${f.options.map((o) => `<option${prev === esc(o) ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
@@ -180,7 +183,7 @@
       });
       const notes = document.createElement('label');
       notes.className = 'fld fld-notes';
-      notes.innerHTML = `<span class="fld-l">Précisions (optionnel)</span><textarea class="fld-i" name="precisions" rows="3" placeholder="${esc(pr.hint)}">${S.prest === pr.slug && S.prestData.precisions ? esc(S.prestData.precisions) : ''}</textarea>`;
+      notes.innerHTML = `<span class="fld-l">Précisions (optionnel)</span><textarea class="fld-i" name="precisions" rows="3" placeholder="${esc(pr.hint)}">${S.prest === pr.slug && S.prestData && S.prestData.precisions ? esc(S.prestData.precisions) : ''}</textarea>`;
       box.appendChild(notes);
     });
   }
@@ -218,36 +221,86 @@
     });
   }
 
-  /* ---------- Récapitulatif ---------- */
-  function recapData() {
-    if (S.from === 'pack' && packOf()) {
-      const d = durOf(), acts = [];
-      for (let i = 1; i <= d.cats; i++) acts.push(actLabel(i, S.choices['c' + i] || 0));
-      const lines = S.flight.on
-        ? [['Billet d’avion', 'Oui · ' + S.flight.classe], ['Vol', 'Départ ' + fmtDate(S.flight.aller) + ' · retour ' + fmtDate(S.flight.retour)]]
-        : [['Billet d’avion', 'Non']];
-      return { title: 'Pack ' + packOf().name, sub: d.label + ' · ' + d.cats + ' activités', acts, lines, price: d.price, back: '#/pack/' + S.pack };
-    }
-    if (S.from === 'prest' && prestOf()) {
-      const pr = prestOf(), lines = [];
-      pr.fields.forEach((f) => { const v = S.prestData[f.id]; if (v) lines.push([f.label, f.type === 'date' ? fmtDate(v) : v]); });
-      if (S.prestData.precisions) lines.push(['Précisions', S.prestData.precisions]);
-      return { title: pr.name, sub: 'Prestation sur-mesure · sur devis', acts: null, lines, price: 'Sur devis', back: '#/prestation/' + pr.slug };
-    }
-    return null;
+  /* ---------- Sélection (plusieurs éléments) et récapitulatif ---------- */
+  if (!Array.isArray(S.items)) S.items = [];
+
+  // Élément construit à partir de l'écran en cours (pack configuré ou prestation remplie)
+  function itemFromPack() {
+    const p = packOf(); if (!p) return null;
+    const d = durOf(), acts = [];
+    for (let i = 1; i <= d.cats; i++) acts.push(actLabel(i, S.choices['c' + i] || 0));
+    const lines = S.flight.on
+      ? [['Billet d’avion', 'Oui · ' + S.flight.classe], ['Vol', 'Départ ' + fmtDate(S.flight.aller) + ' · retour ' + fmtDate(S.flight.retour)]]
+      : [['Billet d’avion', 'Non']];
+    return { id: 'pack:' + p.slug, kind: 'pack', title: 'Pack ' + p.name, sub: d.label + ' · ' + d.cats + ' activités', acts, lines, price: d.price, img: p.img,
+      state: { pack: p.slug, dur: S.dur, choices: Object.assign({}, S.choices), flight: Object.assign({}, S.flight) } };
+  }
+  function itemFromPrest(data) {
+    const pr = prestOf(); if (!pr) return null;
+    const lines = [];
+    pr.fields.forEach((f) => { const v = data[f.id]; if (v) lines.push([f.label, f.type === 'date' ? fmtDate(v) : v]); });
+    if (data.precisions) lines.push(['Précisions', data.precisions]);
+    return { id: 'prest:' + pr.slug, kind: 'prest', title: pr.name, sub: 'Prestation sur-mesure · sur devis', acts: null, lines, price: 'Sur devis', img: pr.img,
+      state: { prest: pr.slug, data: Object.assign({}, data) } };
+  }
+  function upsert(item) {
+    const i = S.items.findIndex((x) => x.id === item.id);
+    if (i >= 0) { S.items[i] = item; return false; }
+    S.items.push(item); return true;
+  }
+  function counters() {
+    const n = S.items.length;
+    $$('[data-sel-count]').forEach((el) => (el.textContent = n));
+    $$('[data-sel-link]').forEach((el) => { el.hidden = !n; el.setAttribute('aria-label', 'Ma sélection, ' + n + ' élément' + (n > 1 ? 's' : '')); });
   }
 
+  // Message de confirmation discret
+  let toastT;
+  function toast(msg) {
+    let t = $('.k-toast');
+    if (!t) {
+      t = document.createElement('div'); t.className = 'k-toast'; t.setAttribute('role', 'status');
+      t.innerHTML = '<span class="k-toast-m"></span><a href="#/recap" class="k-toast-a">Voir ma sélection</a>';
+      document.body.appendChild(t);
+    }
+    $('.k-toast-m', t).textContent = msg;
+    t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 4200);
+  }
+  document.addEventListener('kaya:view', () => { const t = $('.k-toast'); if (t) t.classList.remove('on'); });
+
   function summary() {
-    const r = recapData();
-    $$('[data-recap-back]').forEach((a) => { a.href = r ? r.back : '#/packs'; a.hidden = !r; });
+    counters();
     $$('[data-summary]').forEach((box) => {
-      if (!r) { box.innerHTML = `<p class="sum-empty">Aucune sélection pour le moment. <a href="#/packs">Voir les packs</a></p>`; return; }
-      const rows = [['Formule', r.title], ['Détail', r.sub]];
-      if (r.acts) r.acts.forEach((a, i) => rows.push(['Catégorie ' + (i + 1), a]));
-      r.lines.forEach((l) => rows.push(l));
-      rows.push(['Prix estimé', r.price]);
-      box.innerHTML = rows.map(([k, v], i) => `<div class="sum-row${k === 'Prix estimé' ? ' sum-total' : ''}" style="--i:${i}"><span class="sum-k">${esc(k)}</span><span class="sum-v">${esc(v)}</span></div>`).join('');
+      if (!S.items.length) {
+        box.innerHTML = `<div class="sel-empty"><p>Votre sélection est vide.</p><p><a href="#/packs">Voir les packs</a> · <a href="#/prestations">Voir les prestations</a></p></div>`;
+        return;
+      }
+      box.innerHTML = S.items.map((it, n) => {
+        const rows = [['Détail', it.sub]];
+        if (it.acts) it.acts.forEach((a, i) => rows.push(['Catégorie ' + (i + 1), a]));
+        it.lines.forEach((l) => rows.push(l));
+        rows.push([it.kind === 'pack' ? 'Prix estimé' : 'Tarif', it.price]);
+        return `<article class="sel-item" style="--i:${n}">
+          <header class="sel-h"><span class="sel-n">${String(n + 1).padStart(2, '0')}</span><h3 class="sel-t">${esc(it.title)}</h3>
+            <span class="sel-acts"><a href="#" class="sel-ed" data-item-edit="${n}">Modifier</a><button type="button" class="sel-del" data-item-del="${n}" aria-label="Retirer ${esc(it.title)}">Retirer</button></span></header>
+          ${rows.map(([k, v], i) => `<div class="sum-row${i === rows.length - 1 ? ' sum-total' : ''}"><span class="sum-k">${esc(k)}</span><span class="sum-v">${esc(v)}</span></div>`).join('')}
+        </article>`;
+      }).join('') + `<div class="sel-more"><span>Ajouter autre chose</span><a href="#/packs">Un pack</a><a href="#/prestations">Une prestation</a></div>`;
     });
+    $$('[data-recap-back]').forEach((a) => (a.hidden = true));
+  }
+
+  // Envoi : un seul message pour toute la sélection
+  function selectionText(name, tel, mail) {
+    const parts = S.items.map((it, n) => {
+      let t = (n + 1) + '. ' + it.title + ' · ' + it.sub;
+      if (it.acts) t += '\n   Activités : ' + it.acts.join(', ');
+      it.lines.forEach(([k, v]) => (t += '\n   ' + k + ' : ' + v));
+      t += '\n   ' + (it.kind === 'pack' ? 'Prix estimé' : 'Tarif') + ' : ' + it.price;
+      return t;
+    });
+    return 'Bonjour Kaya, je suis ' + name + '.\nVoici ma demande (' + S.items.length + ' élément' + (S.items.length > 1 ? 's' : '') + ') :\n\n' + parts.join('\n\n') +
+      '\n\n' + (tel ? 'WhatsApp : ' + tel + '\n' : '') + (mail ? 'Email : ' + mail : '');
   }
 
   /* ---------- Navigation ---------- */
@@ -275,21 +328,32 @@
     } else { show('home'); renderTestimonials(); }
   }
 
+  function currentItem(t) {
+    if (t.dataset.goRecap === 'pack' || t.dataset.addSel === 'pack') return itemFromPack();
+    const form = t.closest('form') || $('[data-view="prestation"] form');
+    if (form && !form.reportValidity()) return null;
+    return itemFromPrest(Object.fromEntries(new FormData(form)));
+  }
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-go-recap]');
-    if (t) {
+    const go = e.target.closest('[data-go-recap]'), add = e.target.closest('[data-add-sel]');
+    if (go || add) {
       e.preventDefault();
-      if (t.dataset.goRecap === 'pack') S.from = 'pack';
-      else {
-        const form = t.closest('form') || $('[data-view="prestation"] form');
-        if (form && !form.reportValidity()) return;
-        S.from = 'prest';
-        S.prestData = Object.fromEntries(new FormData(form));
-      }
-      S.sentVia = null; save();
-      location.hash = '#/recap';
+      const it = currentItem(go || add); if (!it) return;
+      const added = upsert(it); S.sentVia = null; save(); counters();
+      if (go) { location.hash = '#/recap'; return; }
+      toast(it.title + (added ? ' ajouté à votre sélection' : ' mis à jour dans votre sélection'));
       return;
     }
+    const ed = e.target.closest('[data-item-edit]');
+    if (ed) {
+      e.preventDefault();
+      const it = S.items[+ed.dataset.itemEdit]; if (!it) return;
+      if (it.kind === 'pack') { S.pack = it.state.pack; S.dur = it.state.dur; S.choices = Object.assign({}, it.state.choices); S.flight = Object.assign({}, it.state.flight); save(); location.hash = '#/pack/' + it.state.pack; }
+      else { S.prest = it.state.prest; S.prestData = Object.assign({}, it.state.data); save(); location.hash = '#/prestation/' + it.state.prest; }
+      return;
+    }
+    const del = e.target.closest('[data-item-del]');
+    if (del) { S.items.splice(+del.dataset.itemDel, 1); save(); summary(); return; }
     if (e.target.closest('[data-edit]')) { e.preventDefault(); S.sentVia = null; save(); location.hash = '#/recap'; }
   });
 
@@ -310,19 +374,15 @@
     const tel = ($('[data-ch-field="wa"] input', f) || {}).value || '';
     const mail = ($('[data-ch-field="mail"] input', f) || {}).value || '';
     const fail = (m, el) => { err.textContent = m; el && el.focus(); };
-    if (!recapData()) return fail('Choisissez d’abord une formule ou une prestation.');
+    if (!S.items.length) return fail('Votre sélection est vide : ajoutez un pack ou une prestation.');
     if (!name) return fail('Indiquez votre nom.', f.elements.name);
     if (!waOn && !mailOn) return fail('Choisissez WhatsApp et/ou email.');
     if (waOn && !tel.trim()) return fail('Indiquez votre numéro WhatsApp.', $('[data-ch-field="wa"] input', f));
     if (mailOn && !/^\S+@\S+\.\S+$/.test(mail.trim())) return fail('Indiquez une adresse email valide.', $('[data-ch-field="mail"] input', f));
     err.textContent = '';
-    const r = recapData();
-    const text = 'Bonjour Kaya, je suis ' + name + '.\nVoici ma demande : ' + r.title + ' · ' + r.sub +
-      (r.acts ? '\nActivités : ' + r.acts.join(', ') : '') +
-      (r.lines.length ? '\n' + r.lines.map(([k, v]) => k + ' : ' + v).join('\n') : '') +
-      '\nPrix : ' + r.price + (waOn ? '\nWhatsApp : ' + tel.trim() : '') + (mailOn ? '\nEmail : ' + mail.trim() : '');
+    const text = selectionText(name, waOn ? tel.trim() : '', mailOn ? mail.trim() : '');
     const via = [waOn && 'WhatsApp', mailOn && 'email'].filter(Boolean);
-    S.sentVia = 'Votre récapitulatif est parti par ' + via.join(' et ') + '.'; S.sentText = text; save();
+    S.sentVia = 'Votre récapitulatif (' + S.items.length + ' élément' + (S.items.length > 1 ? 's' : '') + ') est parti par ' + via.join(' et ') + '.'; S.sentText = text; save();
     location.hash = '#/envoye';
   });
 
@@ -341,5 +401,5 @@
 
   addEventListener('scroll', () => document.body.classList.toggle('scrolled', scrollY > 60), { passive: true });
   addEventListener('hashchange', route);
-  addEventListener('DOMContentLoaded', () => { wireWhatsApp(); route(); });
+  addEventListener('DOMContentLoaded', () => { wireWhatsApp(); route(); counters(); });
 })();
