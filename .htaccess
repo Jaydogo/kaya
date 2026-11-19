@@ -1,0 +1,4 @@
+# Anciennes adresses des pistes (novembre 2026) → racine
+RedirectMatch 301 ^/pistes/?$ /
+RedirectMatch 301 ^/pistes/index\.html$ /
+RedirectMatch 301 ^/pistes/(.+)$ /$1

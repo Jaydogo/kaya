@@ -285,7 +285,7 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
 </style>
 </head>
 <body>
-<a class="back" href="/pistes/index.html">← Toutes les pistes</a>
+<a class="back" href="/">← Toutes les pistes</a>
 
 <header class="top"><div class="in w"><div class="l"><a class="logo" href="#/">KAYA</a><span class="lang">FR · EN</span></div><nav><a href="#/">Accueil</a><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations</a></nav><div class="rr"><a class="pill wa" href="#" data-wa>WhatsApp</a><button class="burger" type="button" data-menu-toggle aria-expanded="false" aria-label="Menu"><i></i><i></i></button></div></div></header>
 <div class="mmenu"><nav aria-label="Menu"><a href="#/">Accueil</a><a href="#/packs">Packs découverte</a><a href="#/prestations">Prestations sur-mesure</a><a href="#" data-wa>WhatsApp &amp; contact</a></nav><span class="lang" style="justify-self:start">FR · EN</span></div>
@@ -430,7 +430,7 @@ body.menu .mmenu{opacity:1;visibility:visible;transform:none}
   <div class="legal"><span>© Kaya · La Conciergerie Abidjanaise</span><span>Mentions légales</span></div>
 </footer>
 
-<script src="/pistes/kaya-proto.js?v=20261119c"></script>
+<script src="/kaya-proto.js?v=20261119d"></script>
 <script>
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));

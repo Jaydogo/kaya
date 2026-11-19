@@ -1,4 +1,12 @@
-# KAYA — prototype sur kaya.dake.studio
+# KAYA · kaya.dake.studio
+
+Depuis le 19/11/2026 la racine sert les **pistes de design** :
+`index.html` (sommaire DAKÉ©), `1-horizon.html`, `2-nuit.html`, `3-carnet.html`,
+moteur commun `kaya-proto.js` (données, parcours, `CONFIG.whatsapp`), photos
+provisoires dans `provisoire/`. Le premier prototype est rangé dans `prototype/`.
+Les anciennes adresses `/pistes/…` sont redirigées par `.htaccess`.
+Après modification de `kaya-proto.js`, changer le `?v=` dans les trois pistes (cache OVH 15 min).
+
 
 Site statique (HTML/CSS/JS, aucun serveur requis), d'après l'artefact
 « Kaya — Wireframes site de réservation » (parcours MVP du 17/09/2026 :

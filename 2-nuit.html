@@ -258,7 +258,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 </style>
 </head>
 <body>
-<a class="back" href="/pistes/index.html">← Toutes les pistes</a>
+<a class="back" href="/">← Toutes les pistes</a>
 
 <header class="top" id="top"><span class="lang">FR · <span style="opacity:.5">EN</span></span><a class="logo" href="#/">Kaya</a><button class="mb" id="mb" aria-expanded="false">Menu <i></i></button></header>
 <div class="menu" id="menu" aria-hidden="true">
@@ -407,7 +407,7 @@ footer .legal{display:flex;justify-content:space-between;font-size:11px;color:va
 </footer>
 <img class="follow" id="follow" alt="">
 
-<script src="/pistes/kaya-proto.js?v=20261119c"></script>
+<script src="/kaya-proto.js?v=20261119d"></script>
 <script>
 const mb=document.getElementById('mb'),tp=document.getElementById('top');const sol=()=>tp.classList.toggle('solid',document.body.dataset.current!=='home'||scrollY>innerHeight*.6);addEventListener('scroll',sol,{passive:true});document.addEventListener('kaya:view',sol);
 mb.onclick=()=>{const o=document.body.classList.toggle('menu');mb.setAttribute('aria-expanded',o);document.getElementById('menu').setAttribute('aria-hidden',!o)};
