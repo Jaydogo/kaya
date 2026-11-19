@@ -484,7 +484,6 @@ document.querySelectorAll('#finder .seg button').forEach(b=>b.onclick=()=>{docum
 function sel(){const ul=document.getElementById('sel');const fy=document.querySelector('[data-flight] .fl-btn[data-fl=yes]');const fl=fy&&fy.getAttribute('aria-pressed')==='true';const cl=document.querySelector('[data-flf=classe]');ul.innerHTML=`<li><span>Billet d’avion</span><b>${fl?'Oui · '+(cl?cl.value:''):'Non'}</b></li>`+[...document.querySelectorAll('[data-cats] .cat')].map((c,i)=>{const on=c.querySelector('.opt[aria-pressed=true] .opt-l');return `<li class="${on?'':'todo'}"><span>Catégorie ${i+1}</span><b>${on?on.textContent:'À choisir'}</b></li>`}).join('')}
 new MutationObserver(sel).observe(document.querySelector('[data-cats]'),{childList:true,subtree:true,attributes:true});new MutationObserver(sel).observe(document.querySelector('[data-flight]'),{childList:true,subtree:true,attributes:true});document.addEventListener('change',e=>{if(e.target.matches('[data-flf]'))sel()});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="/smooth.js?v=3"></script>
+<script src="/smooth.js?v=4"></script>
 </body>
 </html>

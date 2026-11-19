@@ -203,7 +203,6 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="/smooth.js?v=3"></script>
+<script src="/smooth.js?v=4"></script>
 </body>
 </html>

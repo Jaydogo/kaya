@@ -1,6 +1,7 @@
 /* Défilement doux et lent (Lenis) pour le sommaire et les pistes Kaya.
    Molette / trackpad amortis ; sur écran tactile, défilement natif du doigt. */
 (function () {
+  return; // défilement natif : Lenis désactivé (à-coups signalés)
   if (!window.Lenis || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const css = document.createElement('style');
   css.textContent = 'html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}';
