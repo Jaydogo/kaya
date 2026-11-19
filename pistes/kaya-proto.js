@@ -15,9 +15,9 @@
   const K = {
     config: CONFIG,
     packs: [
-      { slug: 'nature', name: 'Nature', intro: '[Description de l’ambiance Nature — deux ou trois phrases à fournir]', img: P + 'civ-12.jpg' },
-      { slug: 'culture-histoire', name: 'Culture & Histoire', intro: '[Description de l’ambiance Culture & Histoire — deux ou trois phrases à fournir]', img: P + 'civ-07.jpg' },
-      { slug: 'wild', name: 'Wild', intro: '[Description de l’ambiance Wild — deux ou trois phrases à fournir]', img: P + 'civ-08.jpg' },
+      { slug: 'nature', name: 'Nature', intro: '[Description de l’ambiance Nature · deux ou trois phrases à fournir]', img: P + 'civ-12.jpg' },
+      { slug: 'culture-histoire', name: 'Culture & Histoire', intro: '[Description de l’ambiance Culture & Histoire · deux ou trois phrases à fournir]', img: P + 'civ-07.jpg' },
+      { slug: 'wild', name: 'Wild', intro: '[Description de l’ambiance Wild · deux ou trois phrases à fournir]', img: P + 'civ-08.jpg' },
     ],
     durations: [
       { key: 'weekend', label: 'Week-end', sub: '1-2 activités', count: '1 à 2 activités incluses', cats: 2, price: '[PRIX]' },
@@ -173,7 +173,7 @@
         if (f.type === 'select') {
           input = `<select class="fld-i" name="${f.id}">${f.options.map((o) => `<option${prev === esc(o) ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
         } else {
-          input = `<input class="fld-i" type="${f.type}" name="${f.id}" value="${prev}" ${f.type === 'number' ? 'min="1" inputmode="numeric" placeholder="—"' : ''}>`;
+          input = `<input class="fld-i" type="${f.type}" name="${f.id}" value="${prev}" ${f.type === 'number' ? 'min="1" inputmode="numeric" placeholder="Ex. 2"' : ''}>`;
         }
         lab.innerHTML = `<span class="fld-l">${esc(f.label)}</span>${input}`;
         box.appendChild(lab);
@@ -196,7 +196,7 @@
       track.innerHTML = list.map((t) => `<figure class="testi"><blockquote>« ${esc(t.text)} »</blockquote><figcaption><b>${esc(t.who)}</b><span>${esc(t.ctx)}</span></figcaption></figure>`).join('');
       let ctrl = $('.swipe-ctrl', el);
       if (!ctrl) {
-        track.insertAdjacentHTML('afterend', `<div class="swipe-ctrl"><div class="swipe-dots" aria-hidden="true"></div><div class="swipe-arrows"><button type="button" data-dir="-1" aria-label="Témoignage précédent">←</button><button type="button" data-dir="1" aria-label="Témoignage suivant">→</button></div></div><p class="testis-note">Exemples de mise en page — à remplacer par de vrais avis clients.</p>`);
+        track.insertAdjacentHTML('afterend', `<div class="swipe-ctrl"><div class="swipe-dots" aria-hidden="true"></div><div class="swipe-arrows"><button type="button" data-dir="-1" aria-label="Témoignage précédent">←</button><button type="button" data-dir="1" aria-label="Témoignage suivant">→</button></div></div><p class="testis-note">Exemples de mise en page · à remplacer par de vrais avis clients.</p>`);
         ctrl = $('.swipe-ctrl', el);
         const step = () => (track.children[1] ? track.children[1].offsetLeft - track.children[0].offsetLeft : track.clientWidth) || 1;
         const cur = () => Math.round(track.scrollLeft / step());
@@ -251,11 +251,11 @@
   }
 
   /* ---------- Navigation ---------- */
-  const TITLES = { home: 'Kaya — La conciergerie abidjanaise', packs: 'Packs découverte — Kaya', prestations: 'Prestations sur-mesure — Kaya', recap: 'Votre récapitulatif — Kaya', sent: 'C’est envoyé — Kaya' };
+  const TITLES = { home: 'Kaya · La conciergerie abidjanaise', packs: 'Packs découverte · Kaya', prestations: 'Prestations sur-mesure · Kaya', recap: 'Votre récapitulatif · Kaya', sent: 'C’est envoyé · Kaya' };
   function show(view) {
     $$('[data-view]').forEach((v) => (v.hidden = v.dataset.view !== view));
     document.body.dataset.current = view;
-    document.title = view === 'pack' ? 'Pack ' + packOf().name + ' — Kaya' : view === 'prestation' ? prestOf().name + ' — Kaya' : TITLES[view] || TITLES.home;
+    document.title = view === 'pack' ? 'Pack ' + packOf().name + ' · Kaya' : view === 'prestation' ? prestOf().name + ' · Kaya' : TITLES[view] || TITLES.home;
     document.body.classList.remove('menu');
     window.scrollTo(0, 0);
     document.dispatchEvent(new CustomEvent('kaya:view', { detail: view }));
@@ -317,7 +317,7 @@
     if (mailOn && !/^\S+@\S+\.\S+$/.test(mail.trim())) return fail('Indiquez une adresse email valide.', $('[data-ch-field="mail"] input', f));
     err.textContent = '';
     const r = recapData();
-    const text = 'Bonjour Kaya, je suis ' + name + '.\nVoici ma demande : ' + r.title + ' — ' + r.sub +
+    const text = 'Bonjour Kaya, je suis ' + name + '.\nVoici ma demande : ' + r.title + ' · ' + r.sub +
       (r.acts ? '\nActivités : ' + r.acts.join(', ') : '') +
       (r.lines.length ? '\n' + r.lines.map(([k, v]) => k + ' : ' + v).join('\n') : '') +
       '\nPrix : ' + r.price + (waOn ? '\nWhatsApp : ' + tel.trim() : '') + (mailOn ? '\nEmail : ' + mail.trim() : '');
