@@ -268,13 +268,12 @@ body.menu .back{opacity:0!important;pointer-events:none}
  .swipe2 span.on{width:36px;background:var(--txt)}
  .silence{display:block}
  .silence>div{width:100%}
- .scene{position:relative;height:auto;aspect-ratio:auto;min-height:0;display:grid}
- .scene+.scene{margin-top:12px}
- .scene>img{position:relative;height:78svh;transform:none;filter:none;transition:none}
- .scene::after{display:none}
+ .scene{position:sticky;top:0;height:100svh;contain:paint}
+ .scene+.scene{margin-top:22svh}
+ .scene>img{transform:none;filter:none;transition:none}
+ .scene::after{background:linear-gradient(to top,rgba(12,11,10,.45),transparent 40%)}
+ .scene .card{position:absolute;right:0;bottom:0;width:min(88%,380px);margin:0}
  .scene .idx{top:14px;left:14px;padding:7px 10px;background:rgba(12,11,10,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
- .scene .card{position:relative;width:auto;margin:-64px 12px 0 auto;max-width:86%}
- .stack{padding-bottom:0;display:grid;gap:0}
 }
 @media(min-width:900px){.swipe2{display:none}}
 @view-transition{navigation:auto}
@@ -283,6 +282,24 @@ html{background:#0C0B0A}
 @keyframes pagein{from{opacity:0}to{opacity:1}}
 body>main,body>header,body>footer{animation:pagein .9s cubic-bezier(.22,.8,.2,1) both}
 body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:opacity .45s ease}
+
+/* Citation : collage déconstruit en arrière-plan */
+.quiet{position:relative;overflow:hidden;isolation:isolate}
+.quiet::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(12,11,10,.88),rgba(12,11,10,.35) 70%,rgba(12,11,10,.1))}
+.quiet blockquote{position:relative;z-index:2}
+.qimg{position:absolute;z-index:0;margin:0;overflow:hidden;opacity:.72;will-change:transform}
+.qimg img{filter:grayscale(.35) brightness(.85)}
+.q1{left:4%;top:9%;width:21%;aspect-ratio:3/4}
+.q2{right:5%;top:5%;width:17%;aspect-ratio:1}
+.q3{left:15%;bottom:7%;width:15%;aspect-ratio:4/5}
+.q4{right:11%;bottom:10%;width:24%;aspect-ratio:16/11}
+@media(max-width:899px){
+ .q1{left:-8%;top:5%;width:44%}
+ .q2{right:-10%;top:16%;width:38%}
+ .q3{left:4%;bottom:5%;width:34%}
+ .q4{right:-6%;bottom:12%;width:48%}
+ .qimg{opacity:.6}
+}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1,.hero .r{opacity:1;transform:none}}
@@ -349,7 +366,13 @@ body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:o
 
   <section class="testis w" data-testis="home"><div class="th reveal"><span class="sm">Ils nous ont fait confiance</span><h2>Témoignages</h2></div><div class="testis-list"></div></section>
 
-  <section class="quiet"><blockquote class="reveal">« La qualité du service, pas l’exclusivité du service. »</blockquote></section>
+  <section class="quiet">
+    <figure class="qimg q1" data-speed=".10"><img src="/provisoire/civ-01.jpg" alt="" loading="lazy"></figure>
+    <figure class="qimg q2" data-speed="-.08"><img src="/provisoire/civ-07.jpg" alt="" loading="lazy"></figure>
+    <figure class="qimg q3" data-speed=".06"><img src="/provisoire/civ-10.jpg" alt="" loading="lazy"></figure>
+    <figure class="qimg q4" data-speed="-.12"><img src="/provisoire/civ-02.jpg" alt="" loading="lazy"></figure>
+    <blockquote class="reveal">« La qualité du service, pas l’exclusivité du service. »</blockquote>
+  </section>
 </div>
 
 <!-- 02 PACKS -->
@@ -449,6 +472,9 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 const sts=document.querySelector('.silence .steps'),sw2=[...document.querySelectorAll('.swipe2 span')];
 sts&&sts.addEventListener('scroll',()=>{const i=Math.round(sts.scrollLeft/(sts.children[0].offsetWidth+12));sw2.forEach((d,j)=>d.classList.toggle('on',j===i))},{passive:true});
+
+const qs=[...document.querySelectorAll('.qimg')];
+if(qs.length&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const par=()=>{const vh=innerHeight;qs.forEach(q=>{const r=q.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const c=(r.top+r.height/2-vh/2);q.style.transform='translateY('+(c*+q.dataset.speed).toFixed(1)+'px)'})};addEventListener('scroll',par,{passive:true});par();}
 const fl=document.getElementById('follow');
 if(matchMedia('(hover:hover) and (min-width:960px)').matches){
  document.querySelectorAll('.hov a').forEach(a=>{a.addEventListener('mouseenter',()=>{fl.src=a.dataset.img;fl.classList.add('on')});a.addEventListener('mouseleave',()=>fl.classList.remove('on'))});
