@@ -24,3 +24,22 @@
   new MutationObserver(() => (document.body.classList.contains('menu') ? lenis.stop() : lenis.start()))
     .observe(document.body, { attributes: true, attributeFilter: ['class'] });
 })();
+
+/* Transitions entre pages : sortie en fondu, photos en fondu au chargement */
+(function () {
+  document.querySelectorAll('.card>img').forEach((im) => {
+    const ok = () => im.classList.add('ok');
+    im.complete && im.naturalWidth ? ok() : im.addEventListener('load', ok, { once: true });
+  });
+  if (document.startViewTransition && CSS.supports && CSS.supports('selector(::view-transition)')) return; // fondu natif
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+    const u = new URL(a.href, location.href);
+    if (u.origin !== location.origin || (u.pathname === location.pathname && u.hash)) return; // liens internes à la page : routeur
+    e.preventDefault();
+    document.body.classList.add('leaving');
+    setTimeout(() => (location.href = u.href), 420);
+  });
+  addEventListener('pageshow', (e) => { if (e.persisted) document.body.classList.remove('leaving'); });
+})();

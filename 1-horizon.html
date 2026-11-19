@@ -316,6 +316,12 @@ body.menu .top .wa{background:var(--ink)!important;color:var(--bg)!important}
 @media(max-width:959px){.back{transition:opacity .4s,transform .4s}body.scrolled .back{opacity:0;transform:translateY(-8px);pointer-events:none}}
 @media(max-width:959px){.crumb,.lk,.arr,.ul{position:relative}.crumb::before,.lk::before,.arr::before,.ul::before{content:"";position:absolute;inset:-12px -8px}}
 @media(max-width:959px){.imm{height:165svh}}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.7s;animation-timing-function:cubic-bezier(.22,.8,.2,1)}
+html{background:#F3EEE6}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+body>main,body>header,body>footer{animation:pagein .9s cubic-bezier(.22,.8,.2,1) both}
+body.leaving>main,body.leaving>header,body.leaving>footer{opacity:0;transition:opacity .45s ease}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s cubic-bezier(.22,.8,.2,1),transform 1.4s cubic-bezier(.22,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero .meta{opacity:1;transform:none}.hero h1 .l span{transform:none}.frame{clip-path:none}}
@@ -495,6 +501,6 @@ if(matchMedia('(hover:hover) and (min-width:960px)').matches){
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="/smooth.js?v=2"></script>
+<script src="/smooth.js?v=3"></script>
 </body>
 </html>
